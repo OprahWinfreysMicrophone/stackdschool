@@ -64,7 +64,7 @@
   --cat-xbox:#f472b6;
 }
 
-/* ── LIGHT THEME ── */
+/* -- LIGHT THEME -- */
 [data-theme="light"]{
   --bg:#f5f0e8;
   --bg2:#fdf9f3;
@@ -100,7 +100,7 @@
   --cat-bed:#64748b;
 }
 
-/* ── AUTO: follow system preference unless manually overridden ── */
+/* -- AUTO: follow system preference unless manually overridden -- */
 @media(prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
     --bg:#f5f0e8;
@@ -142,7 +142,7 @@
 html,body{height:100%;overflow:hidden;background:var(--bg);}
 body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-webkit-font-smoothing:antialiased;}
 
-/* ── SPLASH ── */
+/* -- SPLASH -- */
 #splash{position:fixed;inset:0;background:var(--bg);z-index:9990;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:40px;}
 .sp-logo{display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .5s .1s ease forwards;}
@@ -172,11 +172,11 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .sp-out{animation:spOut .4s ease forwards!important;}
 @keyframes spOut{to{opacity:0;pointer-events:none;}}
 
-/* ── APP ── */
+/* -- APP -- */
 #app{display:flex;flex-direction:column;height:100%;opacity:0;transition:opacity .3s;}
 #app.ready{opacity:1;}
 
-/* ── TOPBAR ── */
+/* -- TOPBAR -- */
 .topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 16px;
   display:flex;align-items:center;justify-content:space-between;flex-shrink:0;height:56px;}
 .tb-l{display:flex;align-items:center;gap:10px;}
@@ -197,12 +197,12 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .tb-clk{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;color:var(--txt);letter-spacing:.5px;}
 .tb-dt{font-size:10px;color:var(--txt3);margin-top:1px;}
 
-/* ── MAIN ── */
-.main-layout{flex:1;overflow:hidden;position:relative;}
-.content{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;background:var(--bg);padding-bottom:72px;}
-.screen{display:none;padding:16px;min-height:100%;}.screen.active{display:block;}
+/* -- MAIN -- */
+.main-layout{flex:1;position:relative;}
+.content{position:fixed;top:58px;left:0;right:0;bottom:calc(58px + env(safe-area-inset-bottom));overflow-y:scroll;overflow-x:hidden;background:var(--bg);-webkit-overflow-scrolling:touch;}
+.screen{display:none;padding:16px 16px 32px;}.screen.active{display:block;}
 
-/* ── NAVBAR ── */
+/* -- NAVBAR -- */
 .navbar{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);
   border-top:1px solid var(--border);display:flex;z-index:100;
   padding-bottom:env(safe-area-inset-bottom);}
@@ -214,7 +214,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .nb.school-active{color:var(--cat-school);border-top-color:var(--cat-school);}
 .nb-icon{font-size:15px;line-height:1;}
 
-/* ── PANEL ── */
+/* -- PANEL -- */
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
   padding:14px;margin-bottom:12px;box-shadow:var(--shadow);}
 .ph{font-size:10px;font-weight:700;color:var(--txt3);margin-bottom:12px;
@@ -223,7 +223,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .ph-count{color:var(--txt4);font-size:10px;font-weight:500;letter-spacing:0;}
 .ph.violet{color:var(--cat-school);}
 
-/* ── BUTTONS ── */
+/* -- BUTTONS -- */
 .btn{border:none;border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;
   font-family:'Sora',sans-serif;font-size:14px;font-weight:700;width:100%;
   text-align:center;transition:all .15s;margin-top:10px;letter-spacing:-.1px;}
@@ -238,7 +238,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .btn-danger{background:var(--red-dim);border:1px solid var(--red-border);color:var(--red);font-size:13px;font-weight:600;}
 .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 
-/* ── BRIEF ── */
+/* -- BRIEF -- */
 .brief-grid{display:flex;flex-direction:column;gap:12px;}
 
 .greeting-card{border-radius:var(--radius);padding:22px 20px;
@@ -313,7 +313,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .now-tag{font-size:9px;font-weight:700;background:var(--accent);color:#fff;
   padding:2px 8px;border-radius:10px;letter-spacing:.3px;flex-shrink:0;}
 
-/* ── SCHEDULE SCREEN ── */
+/* -- SCHEDULE SCREEN -- */
 .block-group{margin-bottom:8px;}
 .bg-hdr{display:flex;align-items:center;gap:10px;padding:11px 13px;
   background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-sm);
@@ -332,7 +332,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .act-row.cur .ar-lbl{color:var(--txt);font-weight:600;}
 .ar-time{font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace;}
 
-/* ── SCHOOL ── */
+/* -- SCHOOL -- */
 .school-layout{display:grid;grid-template-columns:1fr 290px;gap:14px;}
 .school-hero{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
   padding:22px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
@@ -404,7 +404,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .noday-day{font-size:11px;color:var(--txt4);font-weight:600;text-transform:uppercase;
   letter-spacing:.6px;margin-top:20px;}
 
-/* ── XP HERO ── */
+/* -- XP HERO -- */
 .xp-hero{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
   padding:18px;text-align:center;margin-bottom:12px;box-shadow:var(--shadow);}
 .xp-lbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;
@@ -415,7 +415,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .xp-bar-track{height:3px;background:var(--border2);border-radius:2px;margin:11px 0 3px;}
 .xp-bar-fill{height:100%;background:var(--xp);border-radius:2px;transition:width .4s;}
 
-/* ── TASKS ── */
+/* -- TASKS -- */
 .task-item{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-sm);
   padding:12px 14px;display:flex;align-items:center;gap:11px;cursor:pointer;
   border-left:3px solid var(--border);margin-bottom:6px;transition:all .15s;box-shadow:var(--shadow);}
@@ -435,7 +435,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
   font-family:'JetBrains Mono',monospace;}
 .task-item.done .ti-xp{color:var(--grn);}
 
-/* ── REWARDS ── */
+/* -- REWARDS -- */
 .xp-balance{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
   padding:16px;display:flex;align-items:center;justify-content:space-between;
   margin-bottom:12px;box-shadow:var(--shadow);}
@@ -467,7 +467,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
   margin-bottom:5px;font-size:12px;font-weight:600;color:var(--grn);}
 .ul-date{font-size:10px;color:var(--grn);opacity:.5;font-family:'JetBrains Mono',monospace;}
 
-/* ── REPORT ── */
+/* -- REPORT -- */
 .report-hero{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
   padding:22px;text-align:center;margin-bottom:12px;box-shadow:var(--shadow);}
 .rh-eyebrow{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;
@@ -490,7 +490,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
   letter-spacing:.5px;margin-bottom:3px;}
 .streak-desc{font-size:12px;color:var(--txt2);}
 
-/* ── TOAST / FLASH ── */
+/* -- TOAST / FLASH -- */
 .toast{position:fixed;top:66px;left:50%;transform:translateX(-50%);
   background:var(--panel2);border:1px solid var(--border);color:var(--txt);
   font-family:'Sora',sans-serif;font-size:12px;font-weight:600;
@@ -508,7 +508,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .time-flash.show{animation:flashAnim .7s ease-out forwards;}
 @keyframes flashAnim{0%{opacity:1;}100%{opacity:0;}}
 
-/* ── PIN MODAL ── */
+/* -- PIN MODAL -- */
 .pin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
   z-index:9980;display:none;align-items:center;justify-content:center;}
 .pin-overlay.show{display:flex;}
@@ -532,7 +532,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .tag{background:var(--xp);color:#141210;border-radius:8px;font-size:10px;padding:2px 8px;font-weight:700;font-family:'JetBrains Mono',monospace;}
 
 
-/* ── PARENT DASHBOARD ── */
+/* -- PARENT DASHBOARD -- */
 .parent-tabs{display:flex;gap:4px;margin-bottom:14px;background:var(--panel);
   border:1px solid var(--border);border-radius:var(--radius);padding:4px;}
 .ptab{flex:1;padding:8px 4px;border:none;background:transparent;border-radius:var(--radius-sm);
@@ -540,7 +540,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
   cursor:pointer;transition:all .15s;letter-spacing:.1px;}
 .ptab.active{background:var(--accent);color:#fff;}
 .ptab:hover:not(.active){color:var(--txt2);background:var(--panel2);}
-.ptab-content{display:none;}.ptab-content.active{display:block;min-height:10px;}
+.ptab-content{display:none;}.ptab-content.active{display:block;}
 .parent-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .parent-hint{font-size:11px;color:var(--txt3);font-weight:500;}
 .btn-add{background:var(--accent-dim);border:1px solid rgba(124,58,237,.3);color:var(--accent);
@@ -598,14 +598,14 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
   border-radius:var(--radius-xs);cursor:pointer;width:100%;margin-top:6px;transition:all .15s;}
 .btn-add-sub:hover{border-color:var(--accent);color:var(--accent);}
 
-/* ── THEME TOGGLE ── */
+/* -- THEME TOGGLE -- */
 .theme-toggle{background:var(--panel2);border:1px solid var(--border);border-radius:20px;
   padding:5px 10px;cursor:pointer;font-size:14px;line-height:1;
   transition:all .2s;color:var(--txt2);flex-shrink:0;}
 .theme-toggle:hover{border-color:var(--accent);transform:scale(1.05);}
 .theme-toggle:active{transform:scale(.95);}
 
-/* ── BOTBAR ── */
+/* -- BOTBAR -- */
 .botbar{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;
   display:flex;align-items:center;justify-content:space-between;
   font-size:10px;color:var(--txt4);font-weight:500;flex-shrink:0;}
@@ -775,7 +775,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
                 <div class="sxp-max" id="sh-xp-max">/ 0 XP available</div>
                 <div class="sxp-track"><div class="sxp-fill" id="sh-xp-fill" style="width:0%"></div></div>
               </div>
-              <button class="btn btn-school" id="sh-done-btn" onclick="schoolMarkDone()">✓ Done — Next Subject</button>
+              <button class="btn btn-school" id="sh-done-btn" onclick="schoolMarkDone()">✓ Done - Next Subject</button>
               <button class="btn btn-ghost" onclick="requirePin('skipschool')">Skip (Parent)</button>
             </div>
             <div>
@@ -936,11 +936,27 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 </div>
 
 <script>
-// ════════════════════════════════════════════════
-// STACKD v5 — DATA LAYER + PARENT DASHBOARD
-// ════════════════════════════════════════════════
+// ================================================
+// STACKD v5
+// Safe element getter - returns a no-op proxy if element doesn't exist
+function el(id){
+  const node=document.getElementById(id);
+  if(node)return node;
+  // Return a proxy object so .textContent=, .style.x=, .classList.x() all silently no-op
+  return new Proxy({},{
+    get(_,prop){
+      if(prop==='style')return new Proxy({},{set(){return true;}});
+      if(prop==='classList')return{add:()=>{},remove:()=>{},toggle:()=>{},contains:()=>false};
+      if(prop==='innerHTML'||prop==='textContent')return '';
+      return ()=>{};
+    },
+    set(){return true;}
+  });
+}
+// DATA LAYER + PARENT DASHBOARD
+// ================================================
 
-// ── DEFAULT DATA ──
+// -- DEFAULT DATA --
 const DEFAULT_SCHEDULE = [
   {id:'b1',block:'Wake Up',category:'wake',start:'07:00',end:'07:30',xp:20,days:'all',items:[]},
   {id:'b2',block:'Breakfast',category:'meal',start:'07:30',end:'08:00',xp:10,days:'all',items:[]},
@@ -975,7 +991,7 @@ const DEFAULT_CONFIG = {
   schoolDays: ['mon','tue','wed','thu','fri'],
 };
 
-// ── DB LAYER (Option 3 hooks ready) ──
+// -- DB LAYER (Option 3 hooks ready) --
 // To upgrade to Supabase: replace _localLoad/_localSave with Supabase calls
 // and implement sync(), auth(), pull() below.
 const DB = {
@@ -986,7 +1002,7 @@ const DB = {
   config: {...DEFAULT_CONFIG},
   progress: {},   // XP, streaks, completions
 
-  // ── Local persistence ──
+  // -- Local persistence --
   _localSave(){
     try{
       localStorage.setItem('stk_schedule', JSON.stringify(this.schedule));
@@ -1013,11 +1029,11 @@ const DB = {
     }
   },
 
-  // ── Public API ──
+  // -- Public API --
   load(){ this._localLoad(); },
   save(){ this._localSave(); },
 
-  // ── Progress helpers ──
+  // -- Progress helpers --
   today(){ const n=new Date(); return `${n.getFullYear()}-${n.getMonth()+1}-${n.getDate()}`; },
   pkey(k){ return `${this.today()}_${k}`; },
   getP(k,d=null){ const v=this.progress[this.pkey(k)]; return v!==undefined?v:d; },
@@ -1059,7 +1075,7 @@ const DB = {
   getUnlocks(){ return this.getG('unlocks',[]); },
   addUnlock(u){ const ul=this.getUnlocks(); ul.push(u); this.setG('unlocks',ul); },
 
-  // ── OPTION 3 HOOKS (Supabase stubs) ──
+  // -- OPTION 3 HOOKS (Supabase stubs) --
   // Uncomment + implement when adding cloud sync premium feature
   // async auth(email, password){ /* supabase.auth.signIn({email,password}) */ },
   // async sync(){ /* await supabase.from('families').upsert(this._exportPayload()) */ },
@@ -1067,7 +1083,7 @@ const DB = {
   // _exportPayload(){ return {schedule:this.schedule,tasks:this.tasks,subjects:this.subjects,rewards:this.rewards,config:this.config}; },
 };
 
-// ── CONSTANTS ──
+// -- CONSTANTS --
 const RANKS=[
   {name:'Rookie',abbr:'RK',min:0,max:500},
   {name:'Explorer',abbr:'EX',min:500,max:1200},
@@ -1084,7 +1100,7 @@ const CAT_BG={wake:'rgba(251,146,60,.08)',school:'rgba(167,139,250,.08)',meal:'r
 const DAY_KEYS=['sun','mon','tue','wed','thu','fri','sat'];
 const DAY_LABELS={sun:'Sun',mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat'};
 
-// ── UTILS ──
+// -- UTILS --
 function todayKey(){return DAY_KEYS[new Date().getDay()];}
 function isActiveDay(days){
   if(!days||days.trim().toLowerCase()==='all')return true;
@@ -1096,32 +1112,32 @@ function fmtMins(m){const h=Math.floor(Math.max(0,m)/60),mn=Math.max(0,m)%60;ret
 function fmtSecs(s){const m=Math.floor(Math.max(0,s)/60),sc=Math.max(0,s)%60;return String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');}
 function uid(){return Math.random().toString(36).slice(2,8);}
 
-// ── NAV ──
+// -- NAV --
 let parentUnlocked = false;
 function nav(screen){
   if(screen==='parent'&&!parentUnlocked){
     // Show locked state, then require PIN
     const screens=['brief','school','rewards','debrief','parent'];
-    screens.forEach(s=>{const sc=document.getElementById('s-'+s);if(sc)sc.classList.remove('active');const nb=document.getElementById('nb-'+s);if(nb){nb.classList.remove('active');nb.classList.remove('school-active');}});
-    document.getElementById('s-parent').classList.add('active');
-    document.getElementById('nb-parent').classList.add('active');
-    document.getElementById('parent-locked').style.display='block';
-    document.getElementById('parent-unlocked').style.display='none';
-    document.getElementById('app-title').textContent='Parent';
+    screens.forEach(s=>{const sc=el('s-'+s);if(sc)sc.classList.remove('active');const nb=el('nb-'+s);if(nb){nb.classList.remove('active');nb.classList.remove('school-active');}});
+    el('s-parent').classList.add('active');
+    el('nb-parent').classList.add('active');
+    el('parent-locked').style.display='block';
+    el('parent-unlocked').style.display='none';
+    el('app-title').textContent='Parent';
     return;
   }
   const screens=['brief','school','rewards','debrief','parent'];
-  screens.forEach(s=>{const sc=document.getElementById('s-'+s);if(sc)sc.classList.remove('active');const nb=document.getElementById('nb-'+s);if(nb){nb.classList.remove('active');nb.classList.remove('school-active');}});
-  const sc=document.getElementById('s-'+screen);if(sc)sc.classList.add('active');
-  const nb=document.getElementById('nb-'+screen);
+  screens.forEach(s=>{const sc=el('s-'+s);if(sc)sc.classList.remove('active');const nb=el('nb-'+s);if(nb){nb.classList.remove('active');nb.classList.remove('school-active');}});
+  const sc=el('s-'+screen);if(sc)sc.classList.add('active');
+  const nb=el('nb-'+screen);
   if(nb){if(screen==='school')nb.classList.add('school-active');else nb.classList.add('active');}
   const titles={brief:'stackd · school',school:'School',rewards:'Rewards',debrief:'Daily Report',parent:'Parent'};
-  document.getElementById('app-title').textContent=titles[screen]||'stackd';
+  el('app-title').textContent=titles[screen]||'stackd';
   const renders={brief:renderBrief,school:renderSchool,rewards:renderRewards,debrief:renderDebrief,parent:renderParent};
   if(renders[screen])renders[screen]();
 }
 
-// ── RANK ──
+// -- RANK --
 function getRankData(){
   const total=DB.getTotalXP();let r=RANKS[0],idx=0;
   RANKS.forEach((rk,i)=>{if(total>=rk.min){r=rk;idx=i;}});
@@ -1130,17 +1146,17 @@ function getRankData(){
   return{rank:r,idx,total,next,pct};
 }
 
-// ── HOME ──
+// -- HOME --
 function renderBrief(){
   const h=new Date().getHours();
-  document.getElementById('b-tod-label').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  el('b-tod-label').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
   const{rank,total,next,pct}=getRankData();
-  document.getElementById('b-rank-display').textContent=rank.name+' · '+total.toLocaleString()+' XP';
-  document.getElementById('b-rank-abbr').textContent=rank.abbr;
-  document.getElementById('b-rank-name').textContent=rank.name;
-  document.getElementById('b-rank-fill').style.width=pct+'%';
-  document.getElementById('b-lxp').textContent=total.toLocaleString();
-  document.getElementById('b-nxp').textContent=next?next.min.toLocaleString():'MAX';
+  el('b-rank-display').textContent=rank.name+' · '+total.toLocaleString()+' XP';
+  el('b-rank-abbr').textContent=rank.abbr;
+  el('b-rank-name').textContent=rank.name;
+  el('b-rank-fill').style.width=pct+'%';
+  el('b-lxp').textContent=total.toLocaleString();
+  el('b-nxp').textContent=next?next.min.toLocaleString():'MAX';
   // School session summary
   const lessons=getTodaySubjects();
   const done=lessons.filter((_,i)=>DB.isSubjectDone(i)).length;
@@ -1148,14 +1164,14 @@ function renderBrief(){
   const totalXP=lessons.reduce((s,l)=>s+l.xp,0);
   const earnedXP=DB.getSchoolXPToday();
   const pctDone=lessons.length>0?Math.round((done/lessons.length)*100):0;
-  document.getElementById('b-block-name').textContent=lessons.length===0?'No school today':done===lessons.length&&lessons.length>0?'Session complete! 🎉':'Session in progress';
-  document.getElementById('b-timer').textContent=done+'/'+lessons.length;
-  document.getElementById('b-prog').style.width=pctDone+'%';
-  document.getElementById('b-next').innerHTML='XP available: <span>'+totalXP+'</span>';
-  document.getElementById('b-temp').textContent=earnedXP;
-  document.getElementById('b-fl').textContent=done;
-  document.getElementById('b-wnd').textContent=left;
-  document.getElementById('b-hum').textContent=lessons.length;
+  el('b-block-name').textContent=lessons.length===0?'No school today':done===lessons.length&&lessons.length>0?'Session complete! 🎉':'Session in progress';
+  el('b-timer').textContent=done+'/'+lessons.length;
+  el('b-prog').style.width=pctDone+'%';
+  el('b-next').innerHTML='XP available: <span>'+totalXP+'</span>';
+  el('b-temp').textContent=earnedXP;
+  el('b-fl').textContent=done;
+  el('b-wnd').textContent=left;
+  el('b-hum').textContent=lessons.length;
 }
 
 function getCurrentBlock(){
@@ -1172,10 +1188,10 @@ function getNextBlock(){
   return DB.schedule.find(b=>{if(!isActiveDay(b.days))return false;const sm=toMins(b.start);return sm!==null&&sm>totalMins;});
 }
 
-// ── SCHEDULE ──
+// -- SCHEDULE --
 function renderMission(){
   const totalMins=new Date().getHours()*60+new Date().getMinutes();
-  const cur=getCurrentBlock();const sched=document.getElementById('m-schedule');sched.innerHTML='';
+  const cur=getCurrentBlock();const sched=el('m-schedule');sched.innerHTML='';
   let bc=0;
   DB.schedule.filter(b=>isActiveDay(b.days)&&b.start).forEach(b=>{
     bc++;
@@ -1199,11 +1215,11 @@ function renderMission(){
     }
     sched.appendChild(group);
   });
-  document.getElementById('m-count').textContent=bc+' blocks';
-  if(!bc)sched.innerHTML='<div class="loading-msg">No schedule yet — add blocks in the Parent tab.</div>';
+  el('m-count').textContent=bc+' blocks';
+  if(!bc)sched.innerHTML='<div class="loading-msg">No schedule yet - add blocks in the Parent tab.</div>';
 }
 
-// ── SCHOOL ──
+// -- SCHOOL --
 let schoolTimerInterval=null,schoolTimerSecs=0,schoolTimerTotal=0,schoolTimerAlerted=false;
 
 function getTodaySubjects(){return DB.subjects.filter(s=>isActiveDay(s.days));}
@@ -1221,22 +1237,22 @@ function renderSchool(){
   const noday=lessons.length===0;
   const started=DB.getSchoolStarted();
   const allDone=!noday&&lessons.every((_,i)=>DB.isSubjectDone(i));
-  document.getElementById('school-noday').style.display=noday?'block':'none';
-  document.getElementById('school-idle').style.display=(!noday&&!started&&!allDone)?'block':'none';
-  document.getElementById('school-active').style.display=(!noday&&started&&!allDone)?'block':'none';
-  document.getElementById('school-complete').style.display=(!noday&&allDone)?'block':'none';
+  el('school-noday').style.display=noday?'block':'none';
+  el('school-idle').style.display=(!noday&&!started&&!allDone)?'block':'none';
+  el('school-active').style.display=(!noday&&started&&!allDone)?'block':'none';
+  el('school-complete').style.display=(!noday&&allDone)?'block':'none';
   if(noday){
     const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const msg=NO_SCHOOL_MSGS[new Date().getDay()%NO_SCHOOL_MSGS.length];
-    document.getElementById('noday-title').textContent=msg[1];
-    document.getElementById('noday-msg').textContent=msg[2];
+    el('noday-title').textContent=msg[1];
+    el('noday-msg').textContent=msg[2];
     document.querySelector('.noday-icon').textContent=msg[0];
-    document.getElementById('noday-day').textContent=days[new Date().getDay()]+' — No lessons scheduled';
+    el('noday-day').textContent=days[new Date().getDay()]+' - No lessons scheduled';
     return;
   }
   if(!started&&!allDone){
     const total=lessons.reduce((s,l)=>s+l.xp,0);
-    document.getElementById('sh-lesson-count').textContent=lessons.length+' subjects · '+total+' XP available';
+    el('sh-lesson-count').textContent=lessons.length+' subjects · '+total+' XP available';
     return;
   }
   if(started&&!allDone){
@@ -1248,22 +1264,22 @@ function renderSchool(){
     const earned=lessons.reduce((s,l,i)=>s+(DB.isSubjectDone(i)?l.xp:0),0);
     const total=lessons.reduce((s,l)=>s+l.xp,0);
     const pct=total>0?Math.round((earned/total)*100):0;
-    document.getElementById('sc-score').textContent=pct+'%';
-    document.getElementById('sc-msg').textContent=pct===100?'Every subject done. You absolutely crushed it.':pct>=80?'Strong session. Almost perfect!':'Session complete. Keep building that streak.';
+    el('sc-score').textContent=pct+'%';
+    el('sc-msg').textContent=pct===100?'Every subject done. You absolutely crushed it.':pct>=80?'Strong session. Almost perfect!':'Session complete. Keep building that streak.';
     if(!DB.getP('streak_school',false)){DB.setG('streak',DB.getStreak()+1);DB.setP('streak_school',true);}
   }
 }
 
 function renderLessonList(){
   const lessons=getTodaySubjects();
-  const list=document.getElementById('lesson-list');list.innerHTML='';
+  const list=el('lesson-list');list.innerHTML='';
   const curIdx=DB.getSchoolCurIdx();let done=0;
   const total=lessons.reduce((s,l)=>s+l.xp,0);
   const earned=lessons.reduce((s,l,i)=>s+(DB.isSubjectDone(i)?l.xp:0),0);
   const pct=total>0?Math.min(100,Math.round((earned/total)*100)):0;
-  document.getElementById('sh-xp-val').textContent=earned;
-  document.getElementById('sh-xp-max').textContent='/ '+total+' XP available';
-  document.getElementById('sh-xp-fill').style.width=pct+'%';
+  el('sh-xp-val').textContent=earned;
+  el('sh-xp-max').textContent='/ '+total+' XP available';
+  el('sh-xp-fill').style.width=pct+'%';
   lessons.forEach((l,i)=>{
     const isDone=DB.isSubjectDone(i);const isCur=i===curIdx;if(isDone)done++;
     const div=document.createElement('div');
@@ -1272,19 +1288,19 @@ function renderLessonList(){
     div.innerHTML='<div class="li-num">'+(i+1)+'</div><div class="li-dot" style="background:'+CAT_COLOR.school+'"></div><span class="li-name">'+l.name+'</span><span class="li-dur">'+l.duration+'m</span>'+(isCur?'<span class="li-tag li-now">Now</span>':'')+(isDone?'<span class="li-tag li-done-tag">Done</span>':'');
     list.appendChild(div);
   });
-  document.getElementById('sh-progress').textContent=done+'/'+lessons.length;
-  document.getElementById('sh-progress-eye').textContent='Subject '+(done+1)+' of '+lessons.length;
+  el('sh-progress').textContent=done+'/'+lessons.length;
+  el('sh-progress-eye').textContent='Subject '+(done+1)+' of '+lessons.length;
 }
 
 function reloadLessonDisplay(idx){
   const lessons=getTodaySubjects();const l=lessons[idx];
-  document.getElementById('sh-subject').textContent=l.name;
-  document.getElementById('sh-desc').textContent='';
-  const lb=document.getElementById('sh-link');
+  el('sh-subject').textContent=l.name;
+  el('sh-desc').textContent='';
+  const lb=el('sh-link');
   lb.innerHTML=l.link?'<a href="'+l.link+'" target="_blank">▶ Open resource link</a>':'';
   const next=getNextSubject(idx);
-  if(next){document.getElementById('sh-un-name').textContent=next.name;document.getElementById('sh-un-dur').textContent=next.duration+' min';document.getElementById('school-up-next').style.display='block';}
-  else{document.getElementById('school-up-next').style.display='none';}
+  if(next){el('sh-un-name').textContent=next.name;el('sh-un-dur').textContent=next.duration+' min';el('school-up-next').style.display='block';}
+  else{el('school-up-next').style.display='none';}
 }
 
 function getNextSubject(idx){const lessons=getTodaySubjects();for(let i=idx+1;i<lessons.length;i++){if(!DB.isSubjectDone(i))return lessons[i];}return null;}
@@ -1296,12 +1312,12 @@ function loadLesson(idx){
   clearInterval(schoolTimerInterval);
   schoolTimerSecs=l.duration*60;schoolTimerTotal=schoolTimerSecs;schoolTimerAlerted=false;
   reloadLessonDisplay(idx);updateSchoolTimer();
-  document.getElementById('sh-fill').style.width='0%';
-  document.getElementById('sh-fill').classList.remove('warn');
-  document.getElementById('sh-timer').classList.remove('warn');
-  document.getElementById('sh-timer-lbl').textContent='Time remaining';
-  const btn=document.getElementById('sh-done-btn');
-  btn.textContent='✓ Done — Next Subject';btn.className='btn btn-school';
+  el('sh-fill').style.width='0%';
+  el('sh-fill').classList.remove('warn');
+  el('sh-timer').classList.remove('warn');
+  el('sh-timer-lbl').textContent='Time remaining';
+  const btn=el('sh-done-btn');
+  btn.textContent='✓ Done - Next Subject';btn.className='btn btn-school';
   schoolTimerInterval=setInterval(tickSchoolTimer,1000);
   renderLessonList();
 }
@@ -1310,27 +1326,27 @@ function tickSchoolTimer(){
   schoolTimerSecs--;if(schoolTimerSecs<0)schoolTimerSecs=0;
   updateSchoolTimer();
   const pct=schoolTimerTotal>0?Math.min(100,Math.round(((schoolTimerTotal-schoolTimerSecs)/schoolTimerTotal)*100)):0;
-  document.getElementById('sh-fill').style.width=pct+'%';
+  el('sh-fill').style.width=pct+'%';
   const warn=schoolTimerSecs<=120&&schoolTimerSecs>0;
-  document.getElementById('sh-fill').classList.toggle('warn',warn);
-  document.getElementById('sh-timer').classList.toggle('warn',warn);
+  el('sh-fill').classList.toggle('warn',warn);
+  el('sh-timer').classList.toggle('warn',warn);
   if(schoolTimerSecs===0&&!schoolTimerAlerted){
     schoolTimerAlerted=true;clearInterval(schoolTimerInterval);
     flashScreen();playAlert();
-    document.getElementById('sh-timer-lbl').textContent='Time\'s up!';
-    const btn=document.getElementById('sh-done-btn');
-    btn.textContent='Time\'s Up — Move On';btn.className='btn btn-danger';
-    showToast('Time\'s up — move to the next subject.');
+    el('sh-timer-lbl').textContent='Time\'s up!';
+    const btn=el('sh-done-btn');
+    btn.textContent='Time\'s Up - Move On';btn.className='btn btn-danger';
+    showToast('Time\'s up - move to the next subject.');
   }
 }
-function updateSchoolTimer(){document.getElementById('sh-timer').textContent=fmtSecs(schoolTimerSecs);}
+function updateSchoolTimer(){el('sh-timer').textContent=fmtSecs(schoolTimerSecs);}
 
 function startSchool(){
   DB.setSchoolStarted();
   let first=-1;const lessons=getTodaySubjects();
   for(let i=0;i<lessons.length;i++){if(!DB.isSubjectDone(i)){first=i;break;}}
   renderSchool();if(first>=0)loadLesson(first);
-  document.getElementById('bot-msg').textContent='School session in progress.';
+  el('bot-msg').textContent='School session in progress.';
 }
 
 function schoolMarkDone(){
@@ -1339,7 +1355,7 @@ function schoolMarkDone(){
   const lessons=getTodaySubjects();const l=lessons[idx];DB.setSubjectDone(idx);
   if(l.xp>0){
     DB.addSchoolXPToday(l.xp);DB.addSchoolXPTotal(l.xp);
-    const f=document.getElementById('xp-flash');
+    const f=el('xp-flash');
     f.textContent='+'+l.xp+' School XP';
     f.classList.remove('show','school-xp-flash');void f.offsetWidth;
     f.classList.add('show','school-xp-flash');playXP();
@@ -1363,7 +1379,7 @@ function resetSchool(){
   clearInterval(schoolTimerInterval);renderSchool();showToast('School session reset.');
 }
 
-// ── TASKS ──
+// -- TASKS --
 function renderActivities(){
   let totalXP=0,earnedXP=0;
   DB.schedule.filter(b=>isActiveDay(b.days)).forEach(b=>{
@@ -1372,12 +1388,12 @@ function renderActivities(){
   });
   DB.tasks.filter(t=>isActiveDay(t.days)).forEach(t=>{totalXP+=t.xp;if(DB.isTaskDone(t.id))earnedXP+=t.xp;});
   const pct=totalXP>0?Math.round((earnedXP/totalXP)*100):0;
-  document.getElementById('a-xp-val').textContent=earnedXP;
-  document.getElementById('a-xp-max').textContent='/ '+totalXP+' XP available';
-  document.getElementById('a-xp-fill').style.width=pct+'%';
+  el('a-xp-val').textContent=earnedXP;
+  el('a-xp-max').textContent='/ '+totalXP+' XP available';
+  el('a-xp-fill').style.width=pct+'%';
 
   // Schedule blocks
-  const sl=document.getElementById('a-sched-list');sl.innerHTML='';let sc=0;
+  const sl=el('a-sched-list');sl.innerHTML='';let sc=0;
   DB.schedule.filter(b=>isActiveDay(b.days)&&b.block).forEach(b=>{
     const color=CAT_COLOR[b.category]||CAT_COLOR.chore;const done=DB.isBlockDone(b.id);
     const hdr=document.createElement('div');hdr.className='task-item'+(done?' done':'');hdr.style.borderLeftColor=color;
@@ -1394,14 +1410,14 @@ function renderActivities(){
       sl.appendChild(row);sc++;
     });
   });
-  document.getElementById('a-sched-count').textContent=sc+' items';
-  if(!sc)sl.innerHTML='<div class="loading-msg">No schedule — set one up in the Parent tab.</div>';
+  el('a-sched-count').textContent=sc+' items';
+  if(!sc)sl.innerHTML='<div class="loading-msg">No schedule - set one up in the Parent tab.</div>';
 
   // Tasks
-  const cl=document.getElementById('a-chore-list');cl.innerHTML='';
+  const cl=el('a-chore-list');cl.innerHTML='';
   const todayTasks=DB.tasks.filter(t=>isActiveDay(t.days));
-  document.getElementById('a-count').textContent=todayTasks.length+' tasks';
-  if(!todayTasks.length){cl.innerHTML='<div class="loading-msg">No tasks — add some in the Parent tab.</div>';}
+  el('a-count').textContent=todayTasks.length+' tasks';
+  if(!todayTasks.length){cl.innerHTML='<div class="loading-msg">No tasks - add some in the Parent tab.</div>';}
   else{todayTasks.forEach(t=>{
     const done=DB.isTaskDone(t.id);const color=CAT_COLOR[t.category]||CAT_COLOR.chore;
     const div=document.createElement('div');div.className='task-item'+(done?' done':'');div.style.borderLeftColor=color;
@@ -1409,7 +1425,7 @@ function renderActivities(){
     if(!done)div.onclick=()=>{DB.setTaskDone(t.id);if(t.xp>0){DB.addChoreXP(t.xp);DB.addSpendable(t.xp);showXPFlash('+'+t.xp+' XP');playXP();}renderActivities();if(todayTasks.every(tt=>DB.isTaskDone(tt.id)))setTimeout(()=>showToast('All tasks done! 🔥'),400);};
     cl.appendChild(div);
   });}
-  document.getElementById('bot-msg').textContent=pct===100?'All tasks done! 🎉':'Keep going — earn that XP.';
+  el('bot-msg').textContent=pct===100?'All tasks done! 🎉':'Keep going - earn that XP.';
 }
 
 function resetActivities(){
@@ -1418,14 +1434,14 @@ function resetActivities(){
   renderActivities();showToast('All tasks reset.');
 }
 
-// ── REWARDS ──
+// -- REWARDS --
 function renderRewards(){
   const sp=DB.getSpendable();
-  document.getElementById('r-bal').textContent=sp.toLocaleString();
-  document.getElementById('r-spent').textContent=DB.getSpent().toLocaleString();
-  const shop=document.getElementById('r-shop');shop.innerHTML='';
+  el('r-bal').textContent=sp.toLocaleString();
+  el('r-spent').textContent=DB.getSpent().toLocaleString();
+  const shop=el('r-shop');shop.innerHTML='';
   const active=DB.rewards.filter(r=>r.active!==false);
-  if(!active.length){shop.innerHTML='<div class="loading-msg">No rewards yet — add some in the Parent tab.</div>';return;}
+  if(!active.length){shop.innerHTML='<div class="loading-msg">No rewards yet - add some in the Parent tab.</div>';return;}
   active.forEach(r=>{
     const cost=parseInt(r.cost)||0;const can=sp>=cost;
     const div=document.createElement('div');div.className='reward-card'+(can?' can':'');
@@ -1440,7 +1456,7 @@ function renderRewards(){
     btn.onclick=()=>unlockReward(r.id,cost,r.name);
     div.append(icon,info,btn);shop.appendChild(div);
   });
-  const unlocks=DB.getUnlocks();const up=document.getElementById('r-unlocked-panel');const ul=document.getElementById('r-unlocked-list');
+  const unlocks=DB.getUnlocks();const up=el('r-unlocked-panel');const ul=el('r-unlocked-list');
   if(unlocks.length){
     up.style.display='block';ul.innerHTML='';
     unlocks.slice().reverse().forEach(u=>{
@@ -1459,7 +1475,7 @@ function unlockReward(id,cost,name){
   playSuccess();showToast('Unlocked: '+name+' 🎉');renderRewards();
 }
 
-// ── REPORT ──
+// -- REPORT --
 function renderDebrief(){
   const choreXP=DB.getChoreXP();const schoolXP=DB.getSchoolXPToday();
   const lessons=getTodaySubjects();
@@ -1467,43 +1483,43 @@ function renderDebrief(){
   const totalItems=lessons.length;
   const pct=totalItems>0?Math.round((doneItems/totalItems)*100):0;
   const streak=DB.getStreak();const{rank,total,next,pct:rpct}=getRankData();
-  document.getElementById('d-chore-xp').textContent=DB.getSchoolXPToday();
-  document.getElementById('d-school-xp').textContent=schoolXP;
-  document.getElementById('d-rank-abbr').textContent=rank.abbr;
-  document.getElementById('d-rank-abbr2').textContent=rank.abbr;
-  document.getElementById('d-rank-name').textContent=rank.name;
-  document.getElementById('d-rank-fill').style.width=rpct+'%';
-  document.getElementById('d-lxp').textContent=total.toLocaleString();
-  document.getElementById('d-nxp').textContent=next?next.min.toLocaleString():'MAX';
-  document.getElementById('d-streak').textContent=streak;
+  el('d-chore-xp').textContent=DB.getSchoolXPToday();
+  el('d-school-xp').textContent=schoolXP;
+  el('d-rank-abbr').textContent=rank.abbr;
+  el('d-rank-abbr2').textContent=rank.abbr;
+  el('d-rank-name').textContent=rank.name;
+  el('d-rank-fill').style.width=rpct+'%';
+  el('d-lxp').textContent=total.toLocaleString();
+  el('d-nxp').textContent=next?next.min.toLocaleString():'MAX';
+  el('d-streak').textContent=streak;
   let score,grade,color,msg;
   if(pct===100){score='100%';grade='Perfect Day';color='var(--grn)';msg='Every single task done. That\'s a perfect day. You earned it.';}
-  else if(pct>=80){score=pct+'%';grade='Strong Day';color='var(--xp)';msg='Really solid effort. A few things left — finish strong tomorrow.';}
+  else if(pct>=80){score=pct+'%';grade='Strong Day';color='var(--xp)';msg='Really solid effort. A few things left - finish strong tomorrow.';}
   else if(pct>=50){score=pct+'%';grade='Getting There';color='var(--txt)';msg='You\'ve got more in you. Tomorrow is another shot at it.';}
-  else if(pct>0){score=pct+'%';grade='Rough Day';color='var(--red)';msg='Not your best day — that\'s okay. Tomorrow is a fresh start.';}
-  else{score='0%';grade='No XP Yet';color='var(--red)';msg='Nothing checked off yet. There\'s still time — go get it.';}
-  document.getElementById('d-score').textContent=score;document.getElementById('d-score').style.color=color;
-  document.getElementById('d-grade').textContent=grade;document.getElementById('d-msg').textContent=msg;
-  document.getElementById('d-streak-desc').textContent=
+  else if(pct>0){score=pct+'%';grade='Rough Day';color='var(--red)';msg='Not your best day - that\'s okay. Tomorrow is a fresh start.';}
+  else{score='0%';grade='No XP Yet';color='var(--red)';msg='Nothing checked off yet. There\'s still time - go get it.';}
+  el('d-score').textContent=score;el('d-score').style.color=color;
+  el('d-grade').textContent=grade;el('d-msg').textContent=msg;
+  el('d-streak-desc').textContent=
     streak===0?'Finish your tasks every day to start a streak.':
     streak<7?streak+' day'+(streak>1?'s':'')+' in a row. Keep it going!':
     streak<30?streak+' days straight. You\'re on fire 🔥':
     streak+' days. Absolute legend. 🐐';
 }
 
-// ════════════════════════════════════════════════
+// ================================================
 // PARENT DASHBOARD
-// ════════════════════════════════════════════════
+// ================================================
 function renderParent(){
   if(!parentUnlocked){
-    document.getElementById('parent-locked').style.display='block';
-    document.getElementById('parent-unlocked').style.display='none';
+    el('parent-locked').style.display='block';
+    el('parent-unlocked').style.display='none';
     return;
   }
-  document.getElementById('parent-locked').style.display='none';
-  document.getElementById('parent-unlocked').style.display='block';
+  el('parent-locked').style.display='none';
+  el('parent-unlocked').style.display='block';
   // Populate settings
-  document.getElementById('set-kidname').value=DB.config.kidName||'';
+  el('set-kidname').value=DB.config.kidName||'';
   // Render current active tab
   const activePtab=document.querySelector('.ptab.active');
   if(activePtab)ptab(activePtab.id.replace('ptab-',''));
@@ -1513,8 +1529,8 @@ function renderParent(){
 function ptab(name){
   document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.ptab-content').forEach(c=>c.classList.remove('active'));
-  const t=document.getElementById('ptab-'+name);if(t)t.classList.add('active');
-  const c=document.getElementById('pc-'+name);if(c)c.classList.add('active');
+  const t=el('ptab-'+name);if(t)t.classList.add('active');
+  const c=el('pc-'+name);if(c)c.classList.add('active');
   if(name==='schedule')renderBlockEditor();
   else if(name==='tasks')renderTaskEditor();
   else if(name==='school')renderSchoolEditor();
@@ -1522,55 +1538,43 @@ function ptab(name){
   else if(name==='settings')renderSettingsEditor();
 }
 
-// ── SCHEDULE EDITOR ──
+// -- SCHEDULE EDITOR --
 function renderBlockEditor(){
-  const list=document.getElementById('block-editor-list');list.innerHTML='';
-  DB.schedule.forEach((b,idx)=>{
-    const card=document.createElement('div');card.className='editor-card';
-    card.innerHTML=`
-      <div class="editor-card-hdr">
-        <span class="editor-card-title">${b.block||'Untitled Block'}</span>
-        <button class="editor-card-del" onclick="deleteBlock('${b.id}')">Delete</button>
-      </div>
-      <div class="editor-grid">
-        <div class="field full">
-          <label class="field-lbl">Block name</label>
-          <input class="field-input" value="${b.block||''}" placeholder="e.g. Morning Routine"
-            onchange="updateBlock('${b.id}','block',this.value)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">Start time</label>
-          <input class="field-input" type="time" value="${b.start||''}"
-            onchange="updateBlock('${b.id}','start',this.value)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">End time</label>
-          <input class="field-input" type="time" value="${b.end||''}"
-            onchange="updateBlock('${b.id}','end',this.value)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">Category</label>
-          <select class="field-select" onchange="updateBlock('${b.id}','category',this.value)">
-            ${['wake','meal','school','chore','free','bed','bath','xbox'].map(c=>`<option value="${c}"${b.category===c?' selected':''}>${c}</option>`).join('')}
-          </select>
-        </div>
-        <div class="field">
-          <label class="field-lbl">XP value</label>
-          <input class="field-input" type="number" min="0" value="${b.xp||0}"
-            onchange="updateBlock('${b.id}','xp',parseInt(this.value)||0)">
-        </div>
-        <div class="field full">
-          <label class="field-lbl">Active days</label>
-          <input class="field-input" value="${b.days||'all'}" placeholder="all  or  mon,tue,wed,thu,fri"
-            onchange="updateBlock('${b.id}','days',this.value)">
-        </div>
-      </div>
-      <div class="subitems-wrap">
-        <div class="subitems-lbl">Sub-items</div>
-        <div id="subitems-${b.id}"></div>
-        <button class="btn-add-sub" onclick="addSubitem('${b.id}')">+ Add sub-item</button>
-      </div>
-    `;
+  const list=el('block-editor-list');if(!list)return;
+  list.innerHTML='';
+  DB.schedule.forEach(function(b,idx){
+    const cats=['wake','meal','school','chore','free','bed','bath','xbox'];
+    const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
+    const card=document.createElement('div');
+    card.className='editor-card';
+    card.dataset.id=b.id;
+
+    const hdr=document.createElement('div');hdr.className='editor-card-hdr';
+    const title=document.createElement('span');title.className='editor-card-title';title.textContent=b.block||'Untitled Block';
+    const del=document.createElement('button');del.className='editor-card-del';del.textContent='Delete';del.onclick=function(){deleteBlock(b.id);};
+    hdr.append(title,del);
+
+    const grid=document.createElement('div');grid.className='editor-grid';
+
+    function makeField(lbl,full){const d=document.createElement('div');d.className='field'+(full?' full':'');const l=document.createElement('label');l.className='field-lbl';l.textContent=lbl;d.appendChild(l);return d;}
+    function makeInput(type,val,ph,onChange){const i=document.createElement('input');i.className='field-input';i.type=type;i.value=val||'';if(ph)i.placeholder=ph;i.onchange=onChange;return i;}
+    function makeSelect(opts,val,onChange){const s=document.createElement('select');s.className='field-select';opts.forEach(function(o){const op=document.createElement('option');op.value=o[0];op.textContent=o[1];if(o[0]===val)op.selected=true;s.appendChild(op);});s.onchange=onChange;return s;}
+
+    const f1=makeField('Block name',true);f1.appendChild(makeInput('text',b.block,'e.g. Morning Routine',function(){updateBlock(b.id,'block',this.value);}));
+    const f2=makeField('Start time');f2.appendChild(makeInput('time',b.start,'',function(){updateBlock(b.id,'start',this.value);}));
+    const f3=makeField('End time');f3.appendChild(makeInput('time',b.end,'',function(){updateBlock(b.id,'end',this.value);}));
+    const f4=makeField('Category');f4.appendChild(makeSelect(cats.map(function(c){return[c,c];}),b.category,function(){updateBlock(b.id,'category',this.value);}));
+    const f5=makeField('XP value');f5.appendChild(makeInput('number',b.xp,'0',function(){updateBlock(b.id,'xp',parseInt(this.value)||0);}));
+    const f6=makeField('Active days',true);f6.appendChild(makeSelect(dayOpts,b.days,function(){updateBlock(b.id,'days',this.value);}));
+    grid.append(f1,f2,f3,f4,f5,f6);
+
+    const subWrap=document.createElement('div');subWrap.className='subitems-wrap';
+    const subLbl=document.createElement('div');subLbl.className='subitems-lbl';subLbl.textContent='Sub-items';
+    const subList=document.createElement('div');subList.id='subitems-'+b.id;
+    const addSubBtn=document.createElement('button');addSubBtn.className='btn-add-sub';addSubBtn.textContent='+ Add sub-item';addSubBtn.onclick=function(){addSubitem(b.id);};
+    subWrap.append(subLbl,subList,addSubBtn);
+
+    card.append(hdr,grid,subWrap);
     list.appendChild(card);
     renderSubitems(b.id);
   });
@@ -1578,20 +1582,16 @@ function renderBlockEditor(){
 }
 
 function renderSubitems(blockId){
-  const b=DB.schedule.find(b=>b.id===blockId);if(!b)return;
-  const wrap=document.getElementById('subitems-'+blockId);if(!wrap)return;
+  const b=DB.schedule.find(function(x){return x.id===blockId;});if(!b)return;
+  const wrap=el('subitems-'+blockId);if(!wrap)return;
   wrap.innerHTML='';
-  (b.items||[]).forEach((it,i)=>{
+  (b.items||[]).forEach(function(it,i){
     const row=document.createElement('div');row.className='subitem-row';
-    row.innerHTML=`
-      <input class="field-input" value="${it.name||''}" placeholder="Item name"
-        onchange="updateSubitem('${blockId}',${i},'name',this.value)">
-      <input class="field-input" type="time" value="${it.start||''}"
-        onchange="updateSubitem('${blockId}',${i},'start',this.value)">
-      <input class="field-input" type="number" min="0" value="${it.xp||0}" placeholder="XP"
-        onchange="updateSubitem('${blockId}',${i},'xp',parseInt(this.value)||0)">
-      <button class="subitem-del" onclick="deleteSubitem('${blockId}',${i})">×</button>
-    `;
+    const n=document.createElement('input');n.className='field-input';n.value=it.name||'';n.placeholder='Item name';n.onchange=function(){updateSubitem(blockId,i,'name',this.value);};
+    const t=document.createElement('input');t.className='field-input';t.type='time';t.value=it.start||'';t.onchange=function(){updateSubitem(blockId,i,'start',this.value);};
+    const x=document.createElement('input');x.className='field-input';x.type='number';x.min='0';x.value=it.xp||0;x.placeholder='XP';x.onchange=function(){updateSubitem(blockId,i,'xp',parseInt(this.value)||0);};
+    const d=document.createElement('button');d.className='subitem-del';d.textContent='×';d.onclick=function(){deleteSubitem(blockId,i);};
+    row.append(n,t,x,d);
     wrap.appendChild(row);
   });
 }
@@ -1603,166 +1603,123 @@ function addSubitem(blockId){const b=DB.schedule.find(b=>b.id===blockId);if(!b)r
 function updateSubitem(blockId,idx,key,val){const b=DB.schedule.find(b=>b.id===blockId);if(b&&b.items[idx]){b.items[idx][key]=val;DB.save();}}
 function deleteSubitem(blockId,idx){const b=DB.schedule.find(b=>b.id===blockId);if(b){b.items.splice(idx,1);DB.save();renderSubitems(blockId);}}
 
-// ── TASK EDITOR ──
+// -- TASK EDITOR --
 function renderTaskEditor(){
-  const list=document.getElementById('task-editor-list');list.innerHTML='';
-  DB.tasks.forEach(t=>{
+  const list=el('task-editor-list');if(!list)return;
+  list.innerHTML='';
+  const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
+  const cats=['chore','free','school','wake','meal','bed'];
+  DB.tasks.forEach(function(t){
     const card=document.createElement('div');card.className='editor-card';
-    card.innerHTML=`
-      <div class="editor-card-hdr">
-        <span class="editor-card-title">${t.name||'Untitled Task'}</span>
-        <button class="editor-card-del" onclick="deleteTask('${t.id}')">Delete</button>
-      </div>
-      <div class="editor-grid">
-        <div class="field full">
-          <label class="field-lbl">Task name</label>
-          <input class="field-input" value="${t.name||''}" placeholder="e.g. Make bed"
-            onchange="updateTask('${t.id}','name',this.value)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">XP value</label>
-          <input class="field-input" type="number" min="0" value="${t.xp||0}"
-            onchange="updateTask('${t.id}','xp',parseInt(this.value)||0)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">Category</label>
-          <select class="field-select" onchange="updateTask('${t.id}','category',this.value)">
-            ${['chore','free','school','wake','meal','bed'].map(c=>`<option value="${c}"${t.category===c?' selected':''}>${c}</option>`).join('')}
-          </select>
-        </div>
-        <div class="field full">
-          <label class="field-lbl">Active days</label>
-          <input class="field-input" value="${t.days||'all'}" placeholder="all  or  mon,tue,wed,thu,fri"
-            onchange="updateTask('${t.id}','days',this.value)">
-        </div>
-      </div>
-    `;
+    const hdr=document.createElement('div');hdr.className='editor-card-hdr';
+    const title=document.createElement('span');title.className='editor-card-title';title.textContent=t.name||'Untitled Task';
+    const del=document.createElement('button');del.className='editor-card-del';del.textContent='Delete';del.onclick=function(){deleteTask(t.id);};
+    hdr.append(title,del);
+    const grid=document.createElement('div');grid.className='editor-grid';
+    function makeField(lbl,full){const d=document.createElement('div');d.className='field'+(full?' full':'');const l=document.createElement('label');l.className='field-lbl';l.textContent=lbl;d.appendChild(l);return d;}
+    const f1=makeField('Task name',true);const i1=document.createElement('input');i1.className='field-input';i1.value=t.name||'';i1.placeholder='e.g. Make bed';i1.onchange=function(){updateTask(t.id,'name',this.value);};f1.appendChild(i1);
+    const f2=makeField('XP value');const i2=document.createElement('input');i2.className='field-input';i2.type='number';i2.min='0';i2.value=t.xp||0;i2.onchange=function(){updateTask(t.id,'xp',parseInt(this.value)||0);};f2.appendChild(i2);
+    const f3=makeField('Category');const s3=document.createElement('select');s3.className='field-select';cats.forEach(function(c){const o=document.createElement('option');o.value=c;o.textContent=c;if(c===t.category)o.selected=true;s3.appendChild(o);});s3.onchange=function(){updateTask(t.id,'category',this.value);};f3.appendChild(s3);
+    const f4=makeField('Active days',true);const s4=document.createElement('select');s4.className='field-select';dayOpts.forEach(function(o){const op=document.createElement('option');op.value=o[0];op.textContent=o[1];if(o[0]===t.days)op.selected=true;s4.appendChild(op);});s4.onchange=function(){updateTask(t.id,'days',this.value);};f4.appendChild(s4);
+    grid.append(f1,f2,f3,f4);
+    card.append(hdr,grid);
     list.appendChild(card);
   });
   if(!DB.tasks.length)list.innerHTML='<div class="loading-msg">No tasks yet. Tap + Add Task to start.</div>';
 }
+
 function updateTask(id,key,val){const t=DB.tasks.find(t=>t.id===id);if(t){t[key]=val;DB.save();if(key==='name')renderTaskEditor();}}
 function deleteTask(id){DB.tasks=DB.tasks.filter(t=>t.id!==id);DB.save();renderTaskEditor();}
 function addTask(){DB.tasks.push({id:uid(),name:'New Task',xp:20,days:'all',category:'chore'});DB.save();renderTaskEditor();}
 
-// ── SCHOOL EDITOR ──
+// -- SCHOOL EDITOR --
 function renderSchoolEditor(){
-  // Day toggles
-  const togWrap=document.getElementById('school-day-toggles');togWrap.innerHTML='';
-  ['mon','tue','wed','thu','fri','sat','sun'].forEach(d=>{
-    const on=(DB.config.schoolDays||[]).includes(d);
-    const btn=document.createElement('button');
-    btn.className='day-toggle'+(on?' on':'');
-    btn.textContent=DAY_LABELS[d];
-    btn.onclick=()=>{
-      const days=DB.config.schoolDays||[];
-      const i=days.indexOf(d);
-      if(i>=0)days.splice(i,1);else days.push(d);
-      DB.config.schoolDays=days;DB.save();renderSchoolEditor();
-    };
-    togWrap.appendChild(btn);
-  });
-  // Subjects
-  const list=document.getElementById('subject-editor-list');list.innerHTML='';
-  DB.subjects.forEach(s=>{
+  const togWrap=el('school-day-toggles');
+  if(togWrap){
+    togWrap.innerHTML='';
+    ['mon','tue','wed','thu','fri','sat','sun'].forEach(function(d){
+      const on=(DB.config.schoolDays||[]).includes(d);
+      const btn=document.createElement('button');
+      btn.className='day-toggle'+(on?' on':'');
+      btn.textContent=DAY_LABELS[d];
+      btn.onclick=function(){
+        const days=DB.config.schoolDays||[];
+        const i=days.indexOf(d);
+        if(i>=0)days.splice(i,1);else days.push(d);
+        DB.config.schoolDays=days;DB.save();renderSchoolEditor();
+      };
+      togWrap.appendChild(btn);
+    });
+  }
+  const list=el('subject-editor-list');if(!list)return;
+  list.innerHTML='';
+  const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
+  DB.subjects.forEach(function(s){
     const card=document.createElement('div');card.className='editor-card';
-    card.innerHTML=`
-      <div class="editor-card-hdr">
-        <span class="editor-card-title">${s.name||'Untitled Subject'}</span>
-        <button class="editor-card-del" onclick="deleteSubject('${s.id}')">Delete</button>
-      </div>
-      <div class="editor-grid-3">
-        <div class="field full">
-          <label class="field-lbl">Subject name</label>
-          <input class="field-input" value="${s.name||''}" placeholder="e.g. Math"
-            onchange="updateSubject('${s.id}','name',this.value)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">Duration (min)</label>
-          <input class="field-input" type="number" min="5" value="${s.duration||30}"
-            onchange="updateSubject('${s.id}','duration',parseInt(this.value)||30)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">XP value</label>
-          <input class="field-input" type="number" min="0" value="${s.xp||0}"
-            onchange="updateSubject('${s.id}','xp',parseInt(this.value)||0)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">Active days</label>
-          <input class="field-input" value="${s.days||'all'}" placeholder="all or mon,tue,wed"
-            onchange="updateSubject('${s.id}','days',this.value)">
-        </div>
-        <div class="field full">
-          <label class="field-lbl">Resource link (optional)</label>
-          <input class="field-input" type="url" value="${s.link||''}" placeholder="https://..."
-            onchange="updateSubject('${s.id}','link',this.value)">
-        </div>
-      </div>
-    `;
+    const hdr=document.createElement('div');hdr.className='editor-card-hdr';
+    const title=document.createElement('span');title.className='editor-card-title';title.textContent=s.name||'Untitled Subject';
+    const del=document.createElement('button');del.className='editor-card-del';del.textContent='Delete';del.onclick=function(){deleteSubject(s.id);};
+    hdr.append(title,del);
+    const grid=document.createElement('div');grid.className='editor-grid';
+    function makeField(lbl,full){const d=document.createElement('div');d.className='field'+(full?' full':'');const l=document.createElement('label');l.className='field-lbl';l.textContent=lbl;d.appendChild(l);return d;}
+    const f1=makeField('Subject name',true);const i1=document.createElement('input');i1.className='field-input';i1.value=s.name||'';i1.placeholder='e.g. Math';i1.onchange=function(){updateSubject(s.id,'name',this.value);};f1.appendChild(i1);
+    const f2=makeField('Duration (min)');const i2=document.createElement('input');i2.className='field-input';i2.type='number';i2.min='5';i2.value=s.duration||30;i2.onchange=function(){updateSubject(s.id,'duration',parseInt(this.value)||30);};f2.appendChild(i2);
+    const f3=makeField('XP value');const i3=document.createElement('input');i3.className='field-input';i3.type='number';i3.min='0';i3.value=s.xp||0;i3.onchange=function(){updateSubject(s.id,'xp',parseInt(this.value)||0);};f3.appendChild(i3);
+    const f4=makeField('Active days',true);const s4=document.createElement('select');s4.className='field-select';dayOpts.forEach(function(o){const op=document.createElement('option');op.value=o[0];op.textContent=o[1];if(o[0]===s.days)op.selected=true;s4.appendChild(op);});s4.onchange=function(){updateSubject(s.id,'days',this.value);};f4.appendChild(s4);
+    const f5=makeField('Resource link',true);const i5=document.createElement('input');i5.className='field-input';i5.type='url';i5.value=s.link||'';i5.placeholder='https://...';i5.onchange=function(){updateSubject(s.id,'link',this.value);};f5.appendChild(i5);
+    grid.append(f1,f2,f3,f4,f5);
+    card.append(hdr,grid);
     list.appendChild(card);
   });
   if(!DB.subjects.length)list.innerHTML='<div class="loading-msg">No subjects yet. Tap + Add Subject.</div>';
 }
+
 function updateSubject(id,key,val){const s=DB.subjects.find(s=>s.id===id);if(s){s[key]=val;DB.save();if(key==='name')renderSchoolEditor();}}
 function deleteSubject(id){DB.subjects=DB.subjects.filter(s=>s.id!==id);DB.save();renderSchoolEditor();}
 function addSubject(){DB.subjects.push({id:uid(),name:'New Subject',duration:30,xp:50,link:'',days:'mon,tue,wed,thu,fri'});DB.save();renderSchoolEditor();}
 
-// ── REWARD EDITOR ──
+// -- REWARD EDITOR --
 function renderRewardEditor(){
-  const list=document.getElementById('reward-editor-list');list.innerHTML='';
-  DB.rewards.forEach(r=>{
+  const list=el('reward-editor-list');if(!list)return;
+  list.innerHTML='';
+  DB.rewards.forEach(function(r){
     const card=document.createElement('div');card.className='editor-card';
-    card.innerHTML=`
-      <div class="editor-card-hdr">
-        <span class="editor-card-title">${r.icon||'⭐'} ${r.name||'Untitled'}</span>
-        <button class="editor-card-del" onclick="deleteReward('${r.id}')">Delete</button>
-      </div>
-      <div class="editor-grid">
-        <div class="field full">
-          <label class="field-lbl">Reward name</label>
-          <input class="field-input" value="${r.name||''}" placeholder="e.g. 30 min screen time"
-            onchange="updateReward('${r.id}','name',this.value)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">Icon (emoji)</label>
-          <input class="field-input" value="${r.icon||'⭐'}" placeholder="⭐"
-            onchange="updateReward('${r.id}','icon',this.value)">
-        </div>
-        <div class="field">
-          <label class="field-lbl">XP cost</label>
-          <input class="field-input" type="number" min="0" value="${r.cost||100}"
-            onchange="updateReward('${r.id}','cost',parseInt(this.value)||0)">
-        </div>
-        <div class="field full">
-          <label class="field-lbl">Description</label>
-          <input class="field-input" value="${r.desc||''}" placeholder="Short description"
-            onchange="updateReward('${r.id}','desc',this.value)">
-        </div>
-      </div>
-    `;
+    const hdr=document.createElement('div');hdr.className='editor-card-hdr';
+    const title=document.createElement('span');title.className='editor-card-title';title.textContent=(r.icon||'⭐')+' '+(r.name||'Untitled');
+    const del=document.createElement('button');del.className='editor-card-del';del.textContent='Delete';del.onclick=function(){deleteReward(r.id);};
+    hdr.append(title,del);
+    const grid=document.createElement('div');grid.className='editor-grid';
+    function makeField(lbl,full){const d=document.createElement('div');d.className='field'+(full?' full':'');const l=document.createElement('label');l.className='field-lbl';l.textContent=lbl;d.appendChild(l);return d;}
+    const f1=makeField('Reward name',true);const i1=document.createElement('input');i1.className='field-input';i1.value=r.name||'';i1.placeholder='e.g. 30 min screen time';i1.onchange=function(){updateReward(r.id,'name',this.value);};f1.appendChild(i1);
+    const f2=makeField('Icon (emoji)');const i2=document.createElement('input');i2.className='field-input';i2.value=r.icon||'⭐';i2.placeholder='⭐';i2.onchange=function(){updateReward(r.id,'icon',this.value);};f2.appendChild(i2);
+    const f3=makeField('XP cost');const i3=document.createElement('input');i3.className='field-input';i3.type='number';i3.min='0';i3.value=r.cost||100;i3.onchange=function(){updateReward(r.id,'cost',parseInt(this.value)||0);};f3.appendChild(i3);
+    const f4=makeField('Description',true);const i4=document.createElement('input');i4.className='field-input';i4.value=r.desc||'';i4.placeholder='Short description';i4.onchange=function(){updateReward(r.id,'desc',this.value);};f4.appendChild(i4);
+    grid.append(f1,f2,f3,f4);
+    card.append(hdr,grid);
     list.appendChild(card);
   });
   if(!DB.rewards.length)list.innerHTML='<div class="loading-msg">No rewards yet. Tap + Add Reward.</div>';
 }
+
 function updateReward(id,key,val){const r=DB.rewards.find(r=>r.id===id);if(r){r[key]=val;DB.save();if(key==='name'||key==='icon')renderRewardEditor();}}
 function deleteReward(id){DB.rewards=DB.rewards.filter(r=>r.id!==id);DB.save();renderRewardEditor();}
 function addReward(){DB.rewards.push({id:uid(),name:'New Reward',icon:'⭐',desc:'',cost:100,active:true});DB.save();renderRewardEditor();}
 
-// ── SETTINGS EDITOR ──
+// -- SETTINGS EDITOR --
 function renderSettingsEditor(){
-  document.getElementById('set-kidname').value=DB.config.kidName||'';
+  el('set-kidname').value=DB.config.kidName||'';
 }
 function saveNewPin(){
-  const v=document.getElementById('set-pin').value;
+  const v=el('set-pin').value;
   if(v.length!==4||isNaN(v)){showToast('PIN must be exactly 4 digits.');return;}
   DB.config.pin=v;DB.save();
-  document.getElementById('set-pin').value='';
+  el('set-pin').value='';
   showToast('PIN updated ✓');
 }
 function lockParent(){
   parentUnlocked=false;
-  document.getElementById('parent-locked').style.display='block';
-  document.getElementById('parent-unlocked').style.display='none';
+  el('parent-locked').style.display='block';
+  el('parent-unlocked').style.display='none';
   showToast('Parent dashboard locked.');
 }
 function resetProgress(){
@@ -1777,7 +1734,7 @@ function resetEverything(){
   showToast('Factory reset complete.');
 }
 
-// ── BACKUP / RESTORE ──
+// -- BACKUP / RESTORE --
 function backupData(){
   const payload={
     version:5,
@@ -1819,17 +1776,17 @@ function restoreData(event){
   event.target.value='';
 }
 
-// ── PIN SYSTEM ──
+// -- PIN SYSTEM --
 let pinBuffer='',pinCallback=null;
-function requirePin(action){pinBuffer='';pinCallback=action;updatePinDots();document.getElementById('pin-err').textContent='';document.getElementById('pin-overlay').classList.add('show');}
+function requirePin(action){pinBuffer='';pinCallback=action;updatePinDots();el('pin-err').textContent='';el('pin-overlay').classList.add('show');}
 function pinKey(k){if(pinBuffer.length>=4)return;pinBuffer+=k;updatePinDots();if(pinBuffer.length===4)setTimeout(checkPin,100);}
 function pinClear(){pinBuffer=pinBuffer.slice(0,-1);updatePinDots();}
-function pinCancel(){pinBuffer='';document.getElementById('pin-overlay').classList.remove('show');pinCallback=null;}
-function updatePinDots(){for(let i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('filled',i<pinBuffer.length);}
+function pinCancel(){pinBuffer='';el('pin-overlay').classList.remove('show');pinCallback=null;}
+function updatePinDots(){for(let i=0;i<4;i++)el('pd'+i).classList.toggle('filled',i<pinBuffer.length);}
 function checkPin(){
   const correct=DB.config.pin||'1234';
   if(pinBuffer===correct){
-    document.getElementById('pin-overlay').classList.remove('show');
+    el('pin-overlay').classList.remove('show');
     const action=pinCallback;pinBuffer='';pinCallback=null;
     if(action==='startschool')startSchool();
     else if(action==='skipschool')skipSchool();
@@ -1837,54 +1794,54 @@ function checkPin(){
     
     else if(action==='parentunlock'){parentUnlocked=true;renderParent();}
   }else{
-    document.getElementById('pin-err').textContent='Wrong PIN — try again.';
+    el('pin-err').textContent='Wrong PIN - try again.';
     pinBuffer='';updatePinDots();
   }
 }
 
-// ── AUDIO ──
+// -- AUDIO --
 function playXP(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[440,554,659,880].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=f;g.gain.setValueAtTime(.1,ctx.currentTime+i*.07);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.07+.15);o.start(ctx.currentTime+i*.07);o.stop(ctx.currentTime+i*.07+.2);});}catch(e){}}
 function playSuccess(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=f;g.gain.setValueAtTime(.1,ctx.currentTime+i*.1);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.1+.2);o.start(ctx.currentTime+i*.1);o.stop(ctx.currentTime+i*.1+.25);});}catch(e){}}
 function playAlert(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[880,660,880,660].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type='square';o.frequency.value=f;g.gain.setValueAtTime(.06,ctx.currentTime+i*.25);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+i*.25+.2);o.start(ctx.currentTime+i*.25);o.stop(ctx.currentTime+i*.25+.25);});}catch(e){}}
 
-// ── UI HELPERS ──
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
-function showXPFlash(msg){const f=document.getElementById('xp-flash');f.textContent=msg;f.classList.remove('show','school-xp-flash');void f.offsetWidth;f.classList.add('show');}
-function flashScreen(){const f=document.getElementById('time-flash');f.classList.remove('show');void f.offsetWidth;f.classList.add('show');}
+// -- UI HELPERS --
+function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+function showXPFlash(msg){const f=el('xp-flash');f.textContent=msg;f.classList.remove('show','school-xp-flash');void f.offsetWidth;f.classList.add('show');}
+function flashScreen(){const f=el('time-flash');f.classList.remove('show');void f.offsetWidth;f.classList.add('show');}
 
-// ── CLOCK ──
+// -- CLOCK --
 function setClock(){
   const n=new Date(),h=n.getHours(),m=n.getMinutes();
   const h12=h%12||12,ap=h>=12?'PM':'AM';
   const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('clk').textContent=h12+':'+String(m).padStart(2,'0')+' '+ap;
-  document.getElementById('dt').textContent=days[n.getDay()]+' '+n.getDate()+' '+months[n.getMonth()];
+  el('clk').textContent=h12+':'+String(m).padStart(2,'0')+' '+ap;
+  el('dt').textContent=days[n.getDay()]+' '+n.getDate()+' '+months[n.getMonth()];
 }
 let startTime=Date.now();
-function updateUptime(){const s=Math.floor((Date.now()-startTime)/1000);const el=document.getElementById('uptime-el');if(el)el.textContent=String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor((s%3600)/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function updateUptime(){const s=Math.floor((Date.now()-startTime)/1000);const uptimeEl=el('uptime-el');if(uptimeEl)uptimeEl.textContent=String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor((s%3600)/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 
-// ── WEATHER ──
+// -- WEATHER --
 async function loadWeather(){
   try{
     const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=38.6553&longitude=-87.1717&current_weather=true&hourly=relativehumidity_2m,apparent_temperature,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America/Chicago');
     const d=await r.json();const cw=d.current_weather;const t=Math.round(cw.temperature);
-    document.getElementById('b-temp').innerHTML=t+'<sup>°F</sup>';
+    el('b-temp').innerHTML=t+'<sup>°F</sup>';
     const codes={0:'Clear sky',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',51:'Light drizzle',61:'Light rain',63:'Moderate rain',71:'Light snow',80:'Rain showers',95:'Thunderstorm'};
-    document.getElementById('b-cond').textContent=codes[cw.weathercode]||'Current conditions';
+    el('b-cond').textContent=codes[cw.weathercode]||'Current conditions';
     const idx=new Date().getHours();
-    document.getElementById('b-fl').textContent=Math.round(d.hourly.apparent_temperature[idx])+'°';
-    document.getElementById('b-wnd').textContent=Math.round(cw.windspeed)+'mph';
-    document.getElementById('b-hum').textContent=d.hourly.relativehumidity_2m[idx]+'%';
-  }catch(e){document.getElementById('b-cond').textContent='Unavailable';}
+    el('b-fl').textContent=Math.round(d.hourly.apparent_temperature[idx])+'°';
+    el('b-wnd').textContent=Math.round(cw.windspeed)+'mph';
+    el('b-hum').textContent=d.hourly.relativehumidity_2m[idx]+'%';
+  }catch(e){el('b-cond').textContent='Unavailable';}
 }
 
-// ── THEME ──
+// -- THEME --
 function getSystemTheme(){return window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';}
 function getTheme(){return DB.config.theme||'auto';}
 function applyTheme(pref){
   const root=document.documentElement;
-  const btn=document.getElementById('theme-toggle');
+  const btn=el('theme-toggle');
   const resolved=pref==='auto'?getSystemTheme():pref;
   root.removeAttribute('data-theme');
   if(pref==='dark')root.setAttribute('data-theme','dark');
@@ -1901,7 +1858,7 @@ function toggleTheme(){
 }
 window.matchMedia('(prefers-color-scheme:light)').addEventListener('change',()=>{if(getTheme()==='auto')applyTheme('auto');});
 
-// ── BOOT ──
+// -- BOOT --
 const BOOT_LINES=[
   {text:'Loading your data...',delay:200},
   {text:'Building schedule...',delay:700},
@@ -1909,22 +1866,22 @@ const BOOT_LINES=[
   {text:'All good. Let\'s go.',delay:1700},
 ];
 function launchApp(){
-  document.getElementById('splash').classList.add('sp-out');
-  document.getElementById('app').classList.add('ready');
+  el('splash').classList.add('sp-out');
+  el('app').classList.add('ready');
   applyTheme(getTheme());
   setClock();renderBrief();
   setInterval(setClock,1000);setInterval(updateUptime,1000);
   setInterval(()=>{
-    if(document.getElementById('s-brief').classList.contains('active'))renderBrief();
-    if(document.getElementById('s-mission').classList.contains('active'))renderMission();
+    if(el('s-brief').classList.contains('active'))renderBrief();
+    if(el('s-mission').classList.contains('active'))renderMission();
   },30000);
-  setTimeout(()=>document.getElementById('splash').style.display='none',600);
+  setTimeout(()=>el('splash').style.display='none',600);
 }
 
 async function boot(){
   DB.load();
   applyTheme(DB.config.theme||'auto');
-  const log=document.getElementById('boot-log'),bar=document.getElementById('boot-bar'),pct=document.getElementById('boot-pct');
+  const log=el('boot-log'),bar=el('boot-bar'),pct=el('boot-pct');
   BOOT_LINES.forEach((line,i)=>{
     const div=document.createElement('div');div.className='boot-item active';
     const dot=document.createElement('div');dot.className='boot-dot';
