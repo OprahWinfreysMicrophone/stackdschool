@@ -200,7 +200,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 /* ── MAIN ── */
 .main-layout{flex:1;overflow:hidden;position:relative;}
 .content{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;background:var(--bg);padding-bottom:72px;}
-.screen{display:none;padding:16px;}.screen.active{display:block;}
+.screen{display:none;padding:16px;min-height:100%;}.screen.active{display:block;}
 
 /* ── NAVBAR ── */
 .navbar{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);
@@ -540,7 +540,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
   cursor:pointer;transition:all .15s;letter-spacing:.1px;}
 .ptab.active{background:var(--accent);color:#fff;}
 .ptab:hover:not(.active){color:var(--txt2);background:var(--panel2);}
-.ptab-content{display:none;}.ptab-content.active{display:block;}
+.ptab-content{display:none;}.ptab-content.active{display:block;min-height:10px;}
 .parent-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .parent-hint{font-size:11px;color:var(--txt3);font-weight:500;}
 .btn-add{background:var(--accent-dim);border:1px solid rgba(124,58,237,.3);color:var(--accent);
@@ -855,14 +855,14 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
   </div>
 
       <!-- PARENT DASHBOARD -->
-      <div class="screen" id="s-parent">
+      <div class="screen" id="s-parent" style="overflow:visible;">
         <div id="parent-locked" style="text-align:center;padding:60px 20px;">
           <div style="font-size:52px;margin-bottom:18px;">🔒</div>
           <div style="font-size:22px;font-weight:800;color:var(--txt);letter-spacing:-.4px;margin-bottom:8px;">Parent Dashboard</div>
           <div style="font-size:14px;color:var(--txt2);margin-bottom:32px;">Enter your PIN to manage schedule, tasks, and rewards.</div>
           <button class="btn btn-primary" style="max-width:240px;margin:0 auto;" onclick="requirePin('parentunlock')">Enter PIN</button>
         </div>
-        <div id="parent-unlocked" style="display:none;">
+        <div id="parent-unlocked" style="display:none;padding-bottom:24px;">
           <div class="parent-tabs">
             <button class="ptab active" id="ptab-school" onclick="ptab('school')">School</button>
             <button class="ptab" id="ptab-rewards" onclick="ptab('rewards')">Rewards</button>
