@@ -1703,8 +1703,7 @@ function ptab(name){
 function renderBlockEditor(){
   const list=el('block-editor-list');if(!list)return;
   list.innerHTML='';
-  var data=STAGING||DB;
-  data.schedule.forEach(function(b,idx){
+  (STAGING||DB).schedule.forEach(function(b,idx){
     const cats=['wake','meal','school','chore','free','bed','bath','xbox'];
     const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
     const card=document.createElement('div');
@@ -1758,12 +1757,12 @@ function renderSubitems(blockId){
   });
 }
 
-function updateBlock(id,key,val){const b=DB.schedule.find(b=>b.id===id);if(b){b[key]=val;DB.save();if(key==='block')renderBlockEditor();}}
-function deleteBlock(id){DB.schedule=DB.schedule.filter(b=>b.id!==id);DB.save();renderBlockEditor();}
+function updateBlock(id,key,val){if(!STAGING)startEditing();var b=STAGING.schedule.find(function(b){return b.id===id;});if(b){b[key]=val;if(key==='block')renderBlockEditor();}}
+function deleteBlock(id){if(!STAGING)startEditing();STAGING.schedule=STAGING.schedule.filter(function(b){return b.id!==id;});renderBlockEditor();}
 function addBlock(){if(!STAGING)startEditing();STAGING.schedule.push({id:uid(),block:'New Block',category:'free',start:'',end:'',xp:0,days:'all',items:[]});renderBlockEditor();}
-function addSubitem(blockId){const b=DB.schedule.find(b=>b.id===blockId);if(!b)return;if(!b.items)b.items=[];b.items.push({id:uid(),name:'',start:'',xp:0});DB.save();renderSubitems(blockId);}
-function updateSubitem(blockId,idx,key,val){const b=DB.schedule.find(b=>b.id===blockId);if(b&&b.items[idx]){b.items[idx][key]=val;DB.save();}}
-function deleteSubitem(blockId,idx){const b=DB.schedule.find(b=>b.id===blockId);if(b){b.items.splice(idx,1);DB.save();renderSubitems(blockId);}}
+function addSubitem(blockId){if(!STAGING)startEditing();var b=STAGING.schedule.find(function(b){return b.id===blockId;});if(!b)return;if(!b.items)b.items=[];b.items.push({id:uid(),name:'',start:'',xp:0});renderSubitems(blockId);}
+function updateSubitem(blockId,idx,key,val){if(!STAGING)startEditing();var b=STAGING.schedule.find(function(b){return b.id===blockId;});if(b&&b.items[idx]){b.items[idx][key]=val;}}
+function deleteSubitem(blockId,idx){if(!STAGING)startEditing();var b=STAGING.schedule.find(function(b){return b.id===blockId;});if(b){b.items.splice(idx,1);renderSubitems(blockId);}}
 
 // -- TASK EDITOR --
 function renderTaskEditor(){
@@ -1771,8 +1770,7 @@ function renderTaskEditor(){
   list.innerHTML='';
   const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
   const cats=['chore','free','school','wake','meal','bed'];
-  var data=STAGING||DB;
-  data.tasks.forEach(function(t){
+  (STAGING||DB).tasks.forEach(function(t){
     const card=document.createElement('div');card.className='editor-card';
     const hdr=document.createElement('div');hdr.className='editor-card-hdr';
     const title=document.createElement('span');title.className='editor-card-title';title.textContent=t.name||'Untitled Task';
@@ -1791,8 +1789,8 @@ function renderTaskEditor(){
   if(!DB.tasks.length)list.innerHTML='<div class="loading-msg">No tasks yet. Tap + Add Task to start.</div>';
 }
 
-function updateTask(id,key,val){const t=DB.tasks.find(t=>t.id===id);if(t){t[key]=val;DB.save();if(key==='name')renderTaskEditor();}}
-function deleteTask(id){DB.tasks=DB.tasks.filter(t=>t.id!==id);DB.save();renderTaskEditor();}
+function updateTask(id,key,val){if(!STAGING)startEditing();var t=STAGING.tasks.find(function(t){return t.id===id;});if(t){t[key]=val;if(key==='name')renderTaskEditor();}}
+function deleteTask(id){if(!STAGING)startEditing();STAGING.tasks=STAGING.tasks.filter(function(t){return t.id!==id;});renderTaskEditor();}
 function addTask(){if(!STAGING)startEditing();STAGING.tasks.push({id:uid(),name:'New Task',xp:20,days:'all',category:'chore'});renderTaskEditor();}
 
 // -- SCHOOL EDITOR --
@@ -1818,8 +1816,7 @@ function renderSchoolEditor(){
   const list=el('subject-editor-list');if(!list)return;
   list.innerHTML='';
   const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
-  var data=STAGING||DB;
-  data.subjects.forEach(function(s){
+  (STAGING||DB).subjects.forEach(function(s){
     const card=document.createElement('div');card.className='editor-card';
     const hdr=document.createElement('div');hdr.className='editor-card-hdr';
     const title=document.createElement('span');title.className='editor-card-title';title.textContent=s.name||'Untitled Subject';
@@ -1841,16 +1838,15 @@ function renderSchoolEditor(){
   if(!DB.subjects.length)list.innerHTML='<div class="loading-msg">No subjects yet. Tap + Add Subject.</div>';
 }
 
-function updateSubject(id,key,val){const s=DB.subjects.find(s=>s.id===id);if(s){s[key]=val;DB.save();if(key==='name')renderSchoolEditor();}}
-function deleteSubject(id){DB.subjects=DB.subjects.filter(s=>s.id!==id);DB.save();renderSchoolEditor();}
+function updateSubject(id,key,val){if(!STAGING)startEditing();var s=STAGING.subjects.find(function(s){return s.id===id;});if(s){s[key]=val;if(key==='name')renderSchoolEditor();}}
+function deleteSubject(id){if(!STAGING)startEditing();STAGING.subjects=STAGING.subjects.filter(function(s){return s.id!==id;});renderSchoolEditor();}
 function addSubject(){if(!STAGING)startEditing();STAGING.subjects.push({id:uid(),name:'New Subject',duration:30,xp:50,link:'',days:'mon,tue,wed,thu,fri'});renderSchoolEditor();}
 
 // -- REWARD EDITOR --
 function renderRewardEditor(){
   const list=el('reward-editor-list');if(!list)return;
   list.innerHTML='';
-  var data=STAGING||DB;
-  data.rewards.forEach(function(r){
+  (STAGING||DB).rewards.forEach(function(r){
     const card=document.createElement('div');card.className='editor-card';
     const hdr=document.createElement('div');hdr.className='editor-card-hdr';
     const title=document.createElement('span');title.className='editor-card-title';title.textContent=(r.icon||'⭐')+' '+(r.name||'Untitled');
@@ -1869,8 +1865,8 @@ function renderRewardEditor(){
   if(!DB.rewards.length)list.innerHTML='<div class="loading-msg">No rewards yet. Tap + Add Reward.</div>';
 }
 
-function updateReward(id,key,val){const r=DB.rewards.find(r=>r.id===id);if(r){r[key]=val;DB.save();if(key==='name'||key==='icon')renderRewardEditor();}}
-function deleteReward(id){DB.rewards=DB.rewards.filter(r=>r.id!==id);DB.save();renderRewardEditor();}
+function updateReward(id,key,val){if(!STAGING)startEditing();var r=STAGING.rewards.find(function(r){return r.id===id;});if(r){r[key]=val;if(key==='name'||key==='icon')renderRewardEditor();}}
+function deleteReward(id){if(!STAGING)startEditing();STAGING.rewards=STAGING.rewards.filter(function(r){return r.id!==id;});renderRewardEditor();}
 function addReward(){if(!STAGING)startEditing();STAGING.rewards.push({id:uid(),name:'New Reward',icon:'⭐',desc:'',cost:100,active:true});renderRewardEditor();}
 
 // -- SETTINGS EDITOR --
