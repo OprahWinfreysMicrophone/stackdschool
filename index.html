@@ -21,6 +21,7 @@
   }catch(e){}
 })();
 </script>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Boogaloo&family=Fredoka+One&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -669,6 +670,220 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .warn-play-btn:active{opacity:.8;}
 @keyframes warnPulsePreview{0%,100%{transform:scale(1);}50%{transform:scale(1.015);}}
 .warn-preview-pulse{animation:warnPulsePreview 2.5s ease-in-out infinite;}
+
+/* ── THEME: OPS ── */
+[data-stack-theme="ops"]{
+  --font-ui:'Exo 2',sans-serif;
+  --font-head:'Exo 2',sans-serif;
+  --radius:10px;
+  --radius-sm:7px;
+  --radius-xs:4px;
+  --bg:#060a04;--bg2:#0d1a08;--panel:#0d1a08;--panel2:#122010;
+  --border:#1a2e12;--border2:#142208;
+  --txt:#c8e8c0;--txt2:#86c87a;--txt3:#5f9e52;--txt4:#2d5c22;
+  --accent:#4ade80;--accent2:#22c55e;
+  --xp:#4ade80;--xp2:#86efac;
+  --xp-dim:rgba(74,222,128,.12);--xp-glow:rgba(74,222,128,.3);
+  --accent-dim:rgba(74,222,128,.12);--accent-dim2:rgba(74,222,128,.07);
+  --grn:#4ade80;--grn-dim:rgba(74,222,128,.09);--grn-border:rgba(74,222,128,.22);
+  --red:#ff6b6b;--red-dim:rgba(255,107,107,.09);--red-border:rgba(255,107,107,.22);
+}
+[data-stack-theme="ops"] .tb-title,
+[data-stack-theme="ops"] .g-name,
+[data-stack-theme="ops"] .g-eyebrow,
+[data-stack-theme="ops"] .bc-timer,
+[data-stack-theme="ops"] .sh-timer,
+[data-stack-theme="ops"] .xp-val,
+[data-stack-theme="ops"] .sxp-val,
+[data-stack-theme="ops"] .rh-score,
+[data-stack-theme="ops"] .streak-num{font-family:"Exo 2",sans-serif;font-weight:800;letter-spacing:.5px;}
+[data-stack-theme="ops"] .tb-title{letter-spacing:2px;text-transform:uppercase;}
+[data-stack-theme="ops"] .nb{font-size:10px;gap:2px;letter-spacing:.5px;}
+[data-stack-theme="ops"] .nb-icon{font-size:13px;}
+[data-stack-theme="ops"] .g-name{text-transform:uppercase;letter-spacing:1px;}
+
+/* ── THEME: SUPERHERO ── */
+[data-stack-theme="superhero"]{
+  --font-ui:'Boogaloo',cursive;
+  --font-head:'Boogaloo',cursive;
+  --radius:14px;
+  --radius-sm:10px;
+  --radius-xs:6px;
+  --bg:#001220;--bg2:#001e35;--panel:#001e35;--panel2:#002a4a;
+  --border:#003a5e;--border2:#002d48;
+  --txt:#99ddff;--txt2:#00a8cc;--txt3:#006688;--txt4:#003a5e;
+  --accent:#00c8ff;--accent2:#00aadd;
+  --xp:#e8000f;--xp2:#ff3322;
+  --xp-dim:rgba(232,0,15,.12);--xp-glow:rgba(232,0,15,.3);
+  --accent-dim:rgba(0,200,255,.12);--accent-dim2:rgba(0,200,255,.07);
+  --grn:#00c8ff;--grn-dim:rgba(0,200,255,.09);--grn-border:rgba(0,200,255,.22);
+  --red:#e8000f;--red-dim:rgba(232,0,15,.09);--red-border:rgba(232,0,15,.22);
+}
+[data-stack-theme="superhero"] .tb-title,
+[data-stack-theme="superhero"] .g-name,
+[data-stack-theme="superhero"] .bc-timer,
+[data-stack-theme="superhero"] .sh-timer,
+[data-stack-theme="superhero"] .xp-val,
+[data-stack-theme="superhero"] .sxp-val,
+[data-stack-theme="superhero"] .rh-score,
+[data-stack-theme="superhero"] .streak-num,
+[data-stack-theme="superhero"] .nb,
+[data-stack-theme="superhero"] .btn,
+[data-stack-theme="superhero"] .ph{font-family:"Boogaloo",cursive;}
+[data-stack-theme="superhero"] .tb-title{font-size:20px;letter-spacing:.5px;}
+[data-stack-theme="superhero"] .nb{font-size:10px;gap:1px;padding:6px 0 5px;letter-spacing:0;}
+[data-stack-theme="superhero"] .nb-icon{font-size:13px;line-height:1;}
+[data-stack-theme="superhero"] .g-name{font-size:28px;}
+[data-stack-theme="superhero"] .panel{border-top:2px solid var(--accent);}
+[data-stack-theme="superhero"]{
+  --cat-school:#00c8ff;
+  --cat-chore:#00c8ff;
+  --cat-free:#00c8ff;
+  --cat-wake:#e8000f;
+  --cat-meal:#e8000f;
+  --cat-bed:#e8000f;
+}
+[data-stack-theme="superhero"] .btn-school{background:#e8000f;box-shadow:0 0 20px rgba(232,0,15,.25);}
+[data-stack-theme="superhero"] .btn-primary{background:#00c8ff;color:#001220;box-shadow:0 0 20px rgba(0,200,255,.25);}
+[data-stack-theme="superhero"] .level-fill{background:#00c8ff;}
+[data-stack-theme="superhero"] .bc-prog-fill{background:#00c8ff;}
+[data-stack-theme="superhero"] .sh-fill{background:#e8000f;}
+[data-stack-theme="superhero"] .xp-bar-fill{background:#e8000f;}
+[data-stack-theme="superhero"] .ti-check{border-color:#003a5e;}
+[data-stack-theme="superhero"] .task-item.done .ti-check{background:#00c8ff;border-color:#00c8ff;}
+[data-stack-theme="superhero"] .nb.active{color:#00c8ff;border-top-color:#00c8ff;}
+[data-stack-theme="superhero"] .nb.school-active{color:#e8000f;border-top-color:#e8000f;}
+[data-stack-theme="superhero"] .btn{font-size:16px;font-family:"Boogaloo",cursive;letter-spacing:.3px;font-weight:400 !important;}
+[data-stack-theme="superhero"] .btn-school,[data-stack-theme="superhero"] .btn-primary,[data-stack-theme="superhero"] .btn{padding:13px 14px;font-weight:400 !important;}
+
+/* ── THEME: LITTLE KID ── */
+[data-stack-theme="littlekid"]{
+  --font-ui:'Fredoka One',cursive;
+  --font-head:'Fredoka One',cursive;
+  --radius:16px;
+  --radius-sm:12px;
+  --radius-xs:8px;
+  --bg:#fafafa;--bg2:#ffffff;--panel:#ffffff;--panel2:#f5f5f5;
+  --border:#eeeeee;--border2:#e8e8e8;
+  --txt:#1a1a1a;--txt2:#555555;--txt3:#888888;--txt4:#bbbbbb;
+  --accent:#ff2200;--accent2:#ff5533;
+  --xp:#ff2200;--xp2:#ff5533;
+  --xp-dim:rgba(255,34,0,.08);--xp-glow:rgba(255,34,0,.2);
+  --accent-dim:rgba(255,34,0,.08);--accent-dim2:rgba(255,34,0,.04);
+  --grn:#00aa44;--grn-dim:rgba(0,170,68,.09);--grn-border:rgba(0,170,68,.25);
+  --red:#ff2200;--red-dim:rgba(255,34,0,.08);--red-border:rgba(255,34,0,.25);
+  --shadow:0 2px 8px rgba(0,0,0,.06);--shadow-md:0 4px 16px rgba(0,0,0,.08);
+}
+[data-stack-theme="littlekid"] .tb-title,
+[data-stack-theme="littlekid"] .g-name,
+[data-stack-theme="littlekid"] .bc-timer,
+[data-stack-theme="littlekid"] .sh-timer,
+[data-stack-theme="littlekid"] .xp-val,
+[data-stack-theme="littlekid"] .sxp-val,
+[data-stack-theme="littlekid"] .rh-score,
+[data-stack-theme="littlekid"] .streak-num,
+[data-stack-theme="littlekid"] .nb,
+[data-stack-theme="littlekid"] .btn{font-family:"Fredoka One",cursive;}
+[data-stack-theme="littlekid"] .tb-title{font-size:20px;}
+[data-stack-theme="littlekid"] .g-name{font-size:26px;}
+[data-stack-theme="littlekid"] .panel{border-radius:18px;border-width:2px;}
+[data-stack-theme="littlekid"] .block-card,
+[data-stack-theme="littlekid"] .task-item,
+[data-stack-theme="littlekid"] .reward-card{border-radius:14px;}
+[data-stack-theme="littlekid"] .navbar{border-top-width:2px;border-top-color:#eeeeee;}
+[data-stack-theme="littlekid"] .nb{font-size:11px;gap:2px;}
+[data-stack-theme="littlekid"] .nb.active{color:var(--accent);}
+[data-stack-theme="littlekid"] .topbar{border-bottom:3px solid var(--accent);}
+[data-stack-theme="littlekid"] .btn{font-size:16px;font-family:"Fredoka One",cursive;font-weight:400 !important;}
+
+/* Little Kid category colors override */
+[data-stack-theme="littlekid"] .cat-wake,
+[data-stack-theme="littlekid"] .cat-bed{color:#ff2200;}
+[data-stack-theme="littlekid"] .cat-meal{color:#ff6600;}
+[data-stack-theme="littlekid"] .cat-school{color:#0066ff;}
+[data-stack-theme="littlekid"] .cat-chore{color:#00aa44;}
+[data-stack-theme="littlekid"] .cat-free{color:#aa00ff;}
+
+/* ── THEME: CLEAN/MINIMAL (default) ── */
+[data-stack-theme="minimal"]{
+  --font-ui:'Sora',sans-serif;
+  --font-head:Georgia,serif;
+  --radius:14px;
+  --radius-sm:10px;
+  --radius-xs:6px;
+}
+[data-stack-theme="minimal"] .tb-title{font-family:Georgia,serif;font-weight:400;font-style:normal;letter-spacing:-.3px;}
+[data-stack-theme="minimal"] .g-name{font-family:Georgia,serif;font-weight:400;}
+[data-stack-theme="minimal"] .xp-val,[data-stack-theme="minimal"] .sxp-val,[data-stack-theme="minimal"] .rh-score,[data-stack-theme="minimal"] .streak-num{font-family:Georgia,serif;font-weight:400;}
+
+/* minimal dark (default :root already is dark) */
+[data-stack-theme="minimal"]{
+  --bg:#141210;--bg2:#1c1916;--panel:#211e1a;--panel2:#272320;
+  --border:#2e2a25;--border2:#252118;
+  --txt:#f0ebe4;--txt2:#b8b0a6;--txt3:#7a7168;--txt4:#4a4540;
+  --accent:#7c3aed;--accent2:#9333ea;
+  --xp:#f0a500;--xp2:#ffc840;
+  --xp-dim:rgba(240,165,0,.12);--xp-glow:rgba(240,165,0,.3);
+  --accent-dim:rgba(124,58,237,.12);--accent-dim2:rgba(124,58,237,.07);
+}
+/* minimal light */
+[data-stack-theme="minimal"][data-theme="light"]{
+  --bg:#f7f5f0;--bg2:#ffffff;--panel:#ffffff;--panel2:#f9f5ee;
+  --border:#e8e4de;--border2:#ede8df;
+  --txt:#1c1917;--txt2:#78716c;--txt3:#a8a29e;--txt4:#d6d3d1;
+  --accent:#6d28d9;--accent2:#9333ea;
+  --xp:#d4860a;--xp2:#e8970c;
+  --xp-dim:rgba(212,134,10,.1);--xp-glow:rgba(212,134,10,.25);
+  --accent-dim:rgba(109,40,217,.1);--accent-dim2:rgba(109,40,217,.06);
+}
+
+/* ── THEME: PRINCESS ── */
+[data-stack-theme="princess"]{
+  --font-ui:'Sora',sans-serif;
+  --font-head:Georgia,serif;
+  --radius:18px;
+  --radius-sm:14px;
+  --radius-xs:8px;
+}
+[data-stack-theme="princess"] .tb-title{font-family:Georgia,serif;font-weight:400;font-style:italic;letter-spacing:-.2px;}
+[data-stack-theme="princess"] .g-name{font-family:Georgia,serif;font-weight:400;font-style:italic;}
+[data-stack-theme="princess"] .xp-val,[data-stack-theme="princess"] .sxp-val,[data-stack-theme="princess"] .rh-score,[data-stack-theme="princess"] .streak-num{font-family:Georgia,serif;font-weight:400;font-style:italic;}
+[data-stack-theme="princess"] .btn-primary,[data-stack-theme="princess"] .btn-school{border-radius:24px;}
+[data-stack-theme="princess"] .panel{border-radius:18px;}
+[data-stack-theme="princess"] .block-card,[data-stack-theme="princess"] .reward-card,[data-stack-theme="princess"] .task-item{border-radius:14px;}
+
+/* princess dark */
+[data-stack-theme="princess"]{
+  --bg:#1e0a2e;--bg2:#2d1145;--panel:#2d1145;--panel2:#3d1860;
+  --border:#5b1e8c;--border2:#4a1870;
+  --txt:#f5d0fe;--txt2:#e879f9;--txt3:#c084fc;--txt4:#7e22ce;
+  --accent:#c026d3;--accent2:#e879f9;
+  --xp:#f0abfc;--xp2:#f5d0fe;
+  --xp-dim:rgba(240,171,252,.12);--xp-glow:rgba(240,171,252,.3);
+  --accent-dim:rgba(192,38,211,.15);--accent-dim2:rgba(192,38,211,.08);
+  --grn:#f0abfc;--grn-dim:rgba(240,171,252,.09);--grn-border:rgba(240,171,252,.22);
+}
+/* princess light */
+[data-stack-theme="princess"][data-theme="light"]{
+  --bg:#fdf4ff;--bg2:#ffffff;--panel:#ffffff;--panel2:#fef3ff;
+  --border:#f0d6ff;--border2:#f5e3ff;
+  --txt:#4a044e;--txt2:#7e22ce;--txt3:#a855f7;--txt4:#d8b4fe;
+  --accent:#c026d3;--accent2:#e879f9;
+  --xp:#7e22ce;--xp2:#a855f7;
+  --xp-dim:rgba(126,34,206,.1);--xp-glow:rgba(126,34,206,.25);
+  --accent-dim:rgba(192,38,211,.1);--accent-dim2:rgba(192,38,211,.06);
+  --grn:#a855f7;--grn-dim:rgba(168,85,247,.09);--grn-border:rgba(168,85,247,.22);
+}
+
+
+/* -- THEME PICKER -- */
+.theme-opt-btn{
+  background:var(--panel2);border:1px solid var(--border);border-radius:14px;
+  padding:16px;cursor:pointer;text-align:left;width:100%;
+  font-family:"Sora",sans-serif;transition:all .15s;
+}
+.theme-opt-btn:hover{border-color:var(--accent);}
+.theme-opt-active{border-color:var(--accent) !important;background:var(--accent-dim) !important;}
 /* -- THEME TOGGLE -- */
 .theme-toggle{background:var(--panel2);border:1px solid var(--border);border-radius:20px;
   padding:5px 10px;cursor:pointer;font-size:14px;line-height:1;
@@ -1033,6 +1248,61 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
           </div>
 <div class="ptab-content" id="pc-settings">
             <div class="panel">
+              <div class="ph">App theme <div class="ph-line"></div></div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+                <button class="theme-opt-btn" id="stheme-ops" onclick="setStackTheme('ops')" style="padding:16px;">
+                  <div style="font-size:24px;font-weight:800;color:#4ade80;font-family:'Exo 2',sans-serif;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">STACKD OPS</div>
+                  <div style="font-size:11px;color:var(--txt3);">Black &amp; green · tactical · always dark</div>
+                  <div style="display:flex;gap:6px;margin-top:10px;">
+                    <div style="width:18px;height:18px;border-radius:50%;background:#060a04;border:1px solid #1a2e12;"></div>
+                    <div style="width:18px;height:18px;border-radius:50%;background:#4ade80;"></div>
+                    <div style="width:18px;height:18px;border-radius:50%;background:#22c55e;"></div>
+                  </div>
+                </button>
+                <button class="theme-opt-btn" id="stheme-superhero" onclick="setStackTheme('superhero')" style="padding:16px;">
+                  <div style="font-size:24px;color:#00c8ff;font-family:'Boogaloo',cursive;letter-spacing:.5px;margin-bottom:4px;">Stackd!</div>
+                  <div style="font-size:11px;color:var(--txt3);">Navy, cyan &amp; red · comic energy · always dark</div>
+                  <div style="display:flex;gap:6px;margin-top:10px;">
+                    <div style="width:18px;height:18px;border-radius:50%;background:#001220;border:1px solid #003a5e;"></div>
+                    <div style="width:18px;height:18px;border-radius:50%;background:#00c8ff;"></div>
+                    <div style="width:18px;height:18px;border-radius:50%;background:#e8000f;"></div>
+                  </div>
+                </button>
+                <button class="theme-opt-btn" id="stheme-littlekid" onclick="setStackTheme('littlekid')" style="padding:16px;">
+                  <div style="font-size:24px;color:#ff2200;font-family:'Fredoka One',cursive;margin-bottom:4px;">Stackd!</div>
+                  <div style="font-size:11px;color:var(--txt3);">Bright white · bold RGB accents · light only</div>
+                  <div style="display:flex;gap:6px;margin-top:10px;">
+                    <div style="width:18px;height:18px;border-radius:50%;background:#fafafa;border:1px solid #ddd;"></div>
+                    <div style="width:18px;height:18px;border-radius:50%;background:#ff2200;"></div>
+                    <div style="width:18px;height:18px;border-radius:50%;background:#00aa44;"></div>
+                    <div style="width:18px;height:18px;border-radius:50%;background:#0066ff;"></div>
+                  </div>
+                </button>
+                                <button class="theme-opt-btn theme-opt-active" id="stheme-minimal" onclick="setStackTheme('minimal')" style="padding:20px;">
+                  <div style="font-size:28px;font-weight:400;color:var(--txt);font-family:Georgia,serif;letter-spacing:-.5px;margin-bottom:6px;">Stackd</div>
+                  <div style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;">Clean &amp; Minimal</div>
+                  <div style="font-size:11px;color:var(--txt3);">Warm, calm, simple. Works in light &amp; dark mode.</div>
+                  <div style="display:flex;gap:6px;margin-top:12px;">
+                    <div style="width:20px;height:20px;border-radius:50%;background:#1c1917;border:1px solid var(--border);"></div>
+                    <div style="width:20px;height:20px;border-radius:50%;background:#f7f5f0;border:1px solid var(--border);"></div>
+                    <div style="width:20px;height:20px;border-radius:50%;background:#6d28d9;border:1px solid var(--border);"></div>
+                    <div style="width:20px;height:20px;border-radius:50%;background:#d4860a;border:1px solid var(--border);"></div>
+                  </div>
+                </button>
+                <button class="theme-opt-btn" id="stheme-princess" onclick="setStackTheme('princess')" style="padding:20px;">
+                  <div style="font-size:28px;font-weight:400;color:#c026d3;font-family:Georgia,serif;font-style:italic;letter-spacing:-.5px;margin-bottom:6px;">Stackd ✨</div>
+                  <div style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;">Princess</div>
+                  <div style="font-size:11px;color:var(--txt3);">Lavender &amp; fuchsia, soft and sparkly. Light &amp; dark.</div>
+                  <div style="display:flex;gap:6px;margin-top:12px;">
+                    <div style="width:20px;height:20px;border-radius:50%;background:#1e0a2e;border:1px solid var(--border);"></div>
+                    <div style="width:20px;height:20px;border-radius:50%;background:#fdf4ff;border:1px solid var(--border);"></div>
+                    <div style="width:20px;height:20px;border-radius:50%;background:#c026d3;border:1px solid var(--border);"></div>
+                    <div style="width:20px;height:20px;border-radius:50%;background:#a855f7;border:1px solid var(--border);"></div>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="panel">
               <div class="ph">Profile <div class="ph-line"></div></div>
               <div class="setting-row">
                 <label class="setting-lbl">Kid's name</label>
@@ -1070,6 +1340,65 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 
 
 
+  <!-- THEME PICKER OVERLAY -->
+  <div id="theme-picker-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;flex-direction:column;padding:24px;">
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:28px 24px;max-width:340px;width:100%;text-align:center;">
+      <div style="font-size:22px;font-weight:800;color:var(--txt);letter-spacing:-.5px;margin-bottom:6px;">Choose a theme</div>
+      <div style="font-size:13px;color:var(--txt3);margin-bottom:24px;">You can change this anytime in Parent settings.</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <button class="theme-opt-btn" id="stheme-ops" onclick="pickTheme('ops')" style="padding:18px;text-align:left;">
+          <div style="font-size:26px;font-weight:800;color:#4ade80;font-family:'Exo 2',sans-serif;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">STACKD OPS</div>
+          <div style="font-size:12px;color:var(--txt3);">Black &amp; green. Tactical. Always dark.</div>
+          <div style="display:flex;gap:6px;margin-top:10px;">
+            <div style="width:20px;height:20px;border-radius:50%;background:#060a04;border:1px solid #1a2e12;"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:#4ade80;"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:#22c55e;"></div>
+          </div>
+        </button>
+        <button class="theme-opt-btn" id="stheme-superhero" onclick="pickTheme('superhero')" style="padding:18px;text-align:left;">
+          <div style="font-size:26px;color:#00c8ff;font-family:'Boogaloo',cursive;margin-bottom:4px;">Stackd!</div>
+          <div style="font-size:12px;color:var(--txt3);">Navy, cyan and red. Comic book energy.</div>
+          <div style="display:flex;gap:6px;margin-top:10px;">
+            <div style="width:20px;height:20px;border-radius:50%;background:#001220;border:1px solid #003a5e;"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:#00c8ff;"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:#e8000f;"></div>
+          </div>
+        </button>
+        <button class="theme-opt-btn" id="stheme-littlekid" onclick="pickTheme('littlekid')" style="padding:18px;text-align:left;">
+          <div style="font-size:26px;color:#ff2200;font-family:'Fredoka One',cursive;margin-bottom:4px;">Stackd!</div>
+          <div style="font-size:12px;color:var(--txt3);">Bright white. Bold red, green and blue.</div>
+          <div style="display:flex;gap:6px;margin-top:10px;">
+            <div style="width:20px;height:20px;border-radius:50%;background:#fafafa;border:1px solid #ddd;"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:#ff2200;"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:#00aa44;"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:#0066ff;"></div>
+          </div>
+        </button>
+                <button class="theme-opt-btn" id="stheme-minimal" onclick="pickTheme('minimal')" style="padding:22px;text-align:left;">
+          <div style="font-size:32px;font-weight:400;color:var(--txt);font-family:Georgia,serif;letter-spacing:-.5px;margin-bottom:6px;">Stackd</div>
+          <div style="font-size:12px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Clean &amp; Minimal</div>
+          <div style="font-size:12px;color:var(--txt3);line-height:1.5;">Warm and calm. Works in light and dark.</div>
+          <div style="display:flex;gap:6px;margin-top:14px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#1c1917;"></div>
+            <div style="width:22px;height:22px;border-radius:50%;background:#f7f5f0;border:1px solid rgba(0,0,0,.1);"></div>
+            <div style="width:22px;height:22px;border-radius:50%;background:#6d28d9;"></div>
+            <div style="width:22px;height:22px;border-radius:50%;background:#d4860a;"></div>
+          </div>
+        </button>
+        <button class="theme-opt-btn" id="stheme-princess" onclick="pickTheme('princess')" style="padding:22px;text-align:left;">
+          <div style="font-size:32px;font-weight:400;color:#c026d3;font-family:Georgia,serif;font-style:italic;letter-spacing:-.5px;margin-bottom:6px;">Stackd ✨</div>
+          <div style="font-size:12px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Princess</div>
+          <div style="font-size:12px;color:var(--txt3);line-height:1.5;">Lavender and fuchsia. Soft and sparkly.</div>
+          <div style="display:flex;gap:6px;margin-top:14px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:#1e0a2e;"></div>
+            <div style="width:22px;height:22px;border-radius:50%;background:#fdf4ff;border:1px solid rgba(0,0,0,.1);"></div>
+            <div style="width:22px;height:22px;border-radius:50%;background:#c026d3;"></div>
+            <div style="width:22px;height:22px;border-radius:50%;background:#a855f7;"></div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="navbar">
     <button class="nb active" id="nb-brief"      onclick="nav('brief')">      <span class="nb-icon">🏠</span>Home</button>
     <button class="nb"        id="nb-school"     onclick="nav('school')">     <span class="nb-icon">📚</span>School</button>
@@ -1135,6 +1464,7 @@ const DEFAULT_CONFIG = {
   kidName: 'Champion',
   pin: '1234',
   theme: 'auto',
+  stackTheme: '',
   schoolDays: ['mon','tue','wed','thu','fri'],
 };
 
@@ -1352,8 +1682,9 @@ function renderBrief(){
   const h=new Date().getHours();
   var kidName=DB.config.kidName||'there';
   var tod=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  var w=getThemeWording();
   el('b-tod-label').textContent=tod+', '+kidName+'.';
-  el("b-greeting-name").textContent=tod==="Good morning"?"Rise and grind! 💪":"Hey, "+kidName+"! 👋";
+  el("b-greeting-name").textContent=tod==="Good morning"?w.greetingMorning:(w.greetingAfternoon||"Let's do this.");
   const{rank,total,next,pct}=getRankData();
   el('b-rank-display').textContent=rank.name+' · '+total.toLocaleString()+' XP';
   el('b-rank-abbr').textContent=rank.abbr;
@@ -1919,8 +2250,15 @@ function addReward(){if(!STAGING)startEditing();STAGING.rewards.push({id:uid(),n
 // -- SETTINGS EDITOR --
 
 function renderSettingsEditor(){
-  el('set-kidname').value=DB.config.kidName||'';
+  var cfg=(STAGING||DB).config;
+  var v=el('set-kidname');if(v&&v.tagName)v.value=cfg.kidName||'';
+  var t=cfg.stackTheme||'minimal';
+  ['minimal','princess','ops','superhero','littlekid'].forEach(function(id){
+    var btn=el('stheme-'+id);
+    if(btn&&btn.classList) btn.classList.toggle('theme-opt-active',id===t);
+  });
 }
+
 function saveNewPin(){
   const v=el('set-pin').value;
   if(v.length!==4||isNaN(v)){showToast('PIN must be exactly 4 digits.');return;}
@@ -2054,6 +2392,7 @@ async function loadWeather(){
 function getSystemTheme(){return window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';}
 function getTheme(){return DB.config.theme||'auto';}
 function applyTheme(pref){
+  applyStackTheme(DB.config.stackTheme||'minimal');
   const root=document.documentElement;
   const btn=el('theme-toggle');
   const resolved=pref==='auto'?getSystemTheme():pref;
@@ -2081,6 +2420,7 @@ const BOOT_LINES=[
 ];
 function launchApp(){
   el('splash').classList.add('sp-out');
+  if(!DB.config.themeChosen){setTimeout(showThemePicker,800);}
   el('app').classList.add('ready');
   applyTheme(getTheme());
   setClock();renderBrief();
@@ -2445,6 +2785,120 @@ function unlockAudio(){
 document.addEventListener('touchstart', unlockAudio, {once:true});
 document.addEventListener('touchend', unlockAudio, {once:true});
 document.addEventListener('click', unlockAudio, {once:true});
+
+// ── STACK THEMES ──
+var THEME_WORDING = {
+
+  ops:{
+    xpLabel:'XP earned', xpUnit:'',
+    greetingMorning:'Mission ready.',
+    greetingAfternoon:'Stay on task.',
+    todSuffix:'.',
+    navHome:'Base',navSchedule:'Ops',navSchool:'Intel',
+    navTasks:'Tasks',navRewards:'Rank',navReport:'Debrief',
+  },
+  superhero:{
+    xpLabel:'Hero XP', xpUnit:'',
+    greetingMorning:'Hero time!',
+    greetingAfternoon:"Let's go!",
+    todSuffix:'!',
+    navHome:'Home',navSchedule:'Map',navSchool:'Train',
+    navTasks:'Quest',navRewards:'Loot',navReport:'Report',
+  },
+  littlekid:{
+    xpLabel:'Stars!', xpUnit:' \u2b50',
+    greetingMorning:"Let's GO! \uD83D\uDE80",
+    greetingAfternoon:'Keep it up! \uD83C\uDF1F',
+    todSuffix:'!',
+    navHome:'Home',navSchedule:'Today',navSchool:'School',
+    navTasks:'To-do',navRewards:'Prizes',navReport:'Report',
+  },
+  minimal:{
+    xpLabel:'Points today', xpUnit:'',
+    greetingMorning:'Ready for today?',
+    greetingAfternoon:'Let\'s do this.',
+    greetingOther:'Let\'s do this.',
+    navHome:'Home',navSchedule:'Day',navSchool:'School',
+    navTasks:'Tasks',navRewards:'Rewards',navReport:'Report',
+    todSuffix:'.',
+  },
+  princess:{
+    xpLabel:'Stars earned', xpUnit:' \u2728',
+    greetingMorning:'Time to shine! \u2728',
+    greetingAfternoon:'You got this! \u2728',
+    greetingOther:'You got this! \u2728',
+    navHome:'Home',navSchedule:'Day',navSchool:'Learn',
+    navTasks:'Goals',navRewards:'Wishes',navReport:'Review',
+    todSuffix:'! \u2728',
+  },
+};
+
+function getThemeWording(){
+  return THEME_WORDING[DB.config.stackTheme]||THEME_WORDING.minimal;
+}
+
+function applyStackTheme(t){
+  var root=document.documentElement;
+  root.setAttribute('data-stack-theme', t||'minimal');
+  // Force dark for ops/superhero, force light for littlekid
+  if(t==='ops'||t==='superhero'){
+    root.setAttribute('data-theme','dark');
+    var btn=el('theme-toggle');if(btn)btn.style.display='none';
+  } else if(t==='littlekid'){
+    root.setAttribute('data-theme','light');
+    var btn=el('theme-toggle');if(btn)btn.style.display='none';
+  } else {
+    var btn=el('theme-toggle');if(btn)btn.style.display='';
+  }
+  updateNavLabels();
+  updateKidName();
+}
+
+function updateNavLabels(){
+  var w=getThemeWording();
+  var map={
+    'nb-brief':w.navHome,'nb-mission':w.navSchedule,
+    'nb-school':w.navSchool,'nb-activities':w.navTasks,
+    'nb-rewards':w.navRewards,'nb-debrief':w.navReport
+  };
+  Object.keys(map).forEach(function(id){
+    var btn=el(id);
+    if(btn&&btn.lastChild&&btn.lastChild.nodeType===3){
+      btn.lastChild.nodeValue=map[id];
+    }
+  });
+  // Update XP label
+  ['a-xp-label','b-xp-label','r-xp-label'].forEach(function(id){
+    var e=el(id);if(e&&e.nodeType!==undefined)e.textContent=w.xpLabel;
+  });
+}
+
+function setStackTheme(t){
+  if(!STAGING)startEditing();
+  STAGING.config.stackTheme=t;
+  // Preview immediately
+  applyStackTheme(t);
+  // Sync picker buttons
+  ['minimal','princess','ops','superhero','littlekid'].forEach(function(id){
+    var btn=el('stheme-'+id);
+    if(btn&&btn.classList) btn.classList.toggle('theme-opt-active', id===t);
+  });
+}
+
+// First launch theme picker
+function showThemePicker(){
+  var overlay=el('theme-picker-overlay');
+  if(overlay&&overlay.style) overlay.style.display='flex';
+}
+
+function pickTheme(t){
+  DB.config.stackTheme=t;
+  DB.config.themeChosen=true;
+  DB.save();
+  applyStackTheme(t);
+  var overlay=el('theme-picker-overlay');
+  if(overlay&&overlay.style) overlay.style.display='none';
+}
 
 boot();
 </script>
