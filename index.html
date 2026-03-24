@@ -654,6 +654,26 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 }
 #warn-tint.warn-active{opacity:1;}
 #warn-tint.end-active{background:rgba(248,113,113,.08);opacity:1;}
+/* -- WARN OPTION BUTTONS -- */
+.warn-opt-btn{
+  background:var(--panel2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:12px 14px;cursor:pointer;text-align:left;width:100%;
+  font-family:"Sora",sans-serif;transition:all .15s;position:relative;
+}
+.warn-opt-btn:hover{border-color:var(--accent);}
+.warn-opt-active{background:var(--accent-dim) !important;border-color:var(--accent) !important;}
+.warn-opt-label{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:2px;}
+.warn-opt-active .warn-opt-label{color:var(--accent);}
+.warn-opt-desc{font-size:11px;color:var(--txt3);}
+.warn-play-btn{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:var(--accent);color:#fff;border:none;border-radius:20px;
+  font-family:"Sora",sans-serif;font-size:11px;font-weight:700;
+  padding:5px 12px;cursor:pointer;
+}
+.warn-play-btn:active{opacity:.8;}
+@keyframes warnPulsePreview{0%,100%{transform:scale(1);}50%{transform:scale(1.015);}}
+.warn-preview-pulse{animation:warnPulsePreview 2.5s ease-in-out infinite;}
 /* -- THEME TOGGLE -- */
 .theme-toggle{background:var(--panel2);border:1px solid var(--border);border-radius:20px;
   padding:5px 10px;cursor:pointer;font-size:14px;line-height:1;
@@ -940,51 +960,86 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
             </div>
             <div id="reward-editor-list"></div>
           </div>
-          <div class="ptab-content" id="pc-warnings">
+                    <div class="ptab-content" id="pc-warnings">
+
+            <!-- LIVE PREVIEW CARD -->
+            <div class="panel" id="warn-preview-card" style="margin-bottom:12px;text-align:center;position:relative;overflow:hidden;">
+              <div style="font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;">Live Preview</div>
+              <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;" id="wp-subject-lbl">Math — lesson 2 of 4</div>
+              <div id="wp-timer" style="font-family:'JetBrains Mono',monospace;font-size:52px;font-weight:500;color:var(--accent);line-height:1;transition:background 1.5s ease,color .3s,padding .3s,border-radius .3s;">04:00</div>
+              <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.4px;margin-top:5px;" id="wp-timer-lbl">time remaining</div>
+              <div style="height:4px;background:var(--border2);border-radius:2px;margin:14px 0 0;">
+                <div id="wp-fill" style="height:100%;background:var(--accent);border-radius:2px;width:30%;transition:background 1.5s ease;"></div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:12px;">
+                <button class="btn btn-ghost" style="flex:1;font-size:12px;margin-top:0;" onclick="wpPreview('warn')">Preview Warning</button>
+                <button class="btn btn-ghost" style="flex:1;font-size:12px;margin-top:0;" onclick="wpPreview('end')">Preview End</button>
+                <button class="btn btn-ghost" style="flex:1;font-size:12px;margin-top:0;" onclick="wpReset()">Reset</button>
+              </div>
+            </div>
+
+            <!-- VISUAL STYLE -->
+            <div class="panel" style="margin-bottom:12px;">
+              <div class="ph">Visual style <div class="ph-line"></div></div>
+              <div style="display:flex;flex-direction:column;gap:8px;" id="wp-visual-options">
+                <button class="warn-opt-btn warn-opt-active" id="wopt-color" onclick="wpSetVisual('color')">
+                  <div class="warn-opt-label">Color shift</div>
+                  <div class="warn-opt-desc">Timer pill fades purple → amber → red</div>
+                </button>
+                <button class="warn-opt-btn" id="wopt-pulse" onclick="wpSetVisual('pulse')">
+                  <div class="warn-opt-label">Soft pulse</div>
+                  <div class="warn-opt-desc">Card gently breathes — no flashing</div>
+                </button>
+                <button class="warn-opt-btn" id="wopt-both" onclick="wpSetVisual('both')">
+                  <div class="warn-opt-label">Both</div>
+                  <div class="warn-opt-desc">Color shift + soft pulse together</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- CHIME -->
+            <div class="panel" style="margin-bottom:12px;">
+              <div class="ph">Warning chime <div class="ph-line"></div></div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <button class="warn-opt-btn warn-opt-active" id="wopt-soft" onclick="wpSetChime('soft')">
+                  <div class="warn-opt-label">Soft chime</div>
+                  <div class="warn-opt-desc">Gentle ascending bells</div>
+                  <button class="warn-play-btn" onclick="event.stopPropagation();wpPlayChime('soft')">&#9654; Play</button>
+                </button>
+                <button class="warn-opt-btn" id="wopt-bowl" onclick="wpSetChime('bowl')">
+                  <div class="warn-opt-label">Singing bowl</div>
+                  <div class="warn-opt-desc">Calm, resonant tone with harmonics</div>
+                  <button class="warn-play-btn" onclick="event.stopPropagation();wpPlayChime('bowl')">&#9654; Play</button>
+                </button>
+                <button class="warn-opt-btn" id="wopt-marimba" onclick="wpSetChime('marimba')">
+                  <div class="warn-opt-label">Marimba</div>
+                  <div class="warn-opt-desc">Light, cheerful notes</div>
+                  <button class="warn-play-btn" onclick="event.stopPropagation();wpPlayChime('marimba')">&#9654; Play</button>
+                </button>
+                <button class="warn-opt-btn" id="wopt-none" onclick="wpSetChime('none')">
+                  <div class="warn-opt-label">No chime</div>
+                  <div class="warn-opt-desc">Visual only, no sound</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- TRIGGER TIMING -->
             <div class="panel">
-              <div class="ph">Warning trigger <div class="ph-line"></div></div>
+              <div class="ph">Trigger timing <div class="ph-line"></div></div>
               <div class="setting-row">
                 <label class="setting-lbl">Warn at</label>
                 <select class="field-select" id="set-warn-mins" style="flex:1;" onchange="if(!STAGING)startEditing();STAGING.config.warnMins=parseInt(this.value);">
                   <option value="2">2 minutes left</option>
                   <option value="3">3 minutes left</option>
-                  <option value="5">5 minutes left</option>
+                  <option value="5" selected>5 minutes left</option>
                   <option value="7">7 minutes left</option>
                   <option value="10">10 minutes left</option>
                 </select>
               </div>
             </div>
-            <div class="panel">
-              <div class="ph">Visual style <div class="ph-line"></div></div>
-              <div class="setting-row">
-                <label class="setting-lbl">Style</label>
-                <select class="field-select" id="set-warn-visual" style="flex:1;" onchange="if(!STAGING)startEditing();STAGING.config.warnVisual=this.value;">
-                  <option value="color">Color shift (purple to yellow to red)</option>
-                  <option value="pulse">Soft pulse only</option>
-                  <option value="both">Both color + pulse</option>
-                </select>
-              </div>
-              <div style="font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.6;">
-                Color shift gradually changes the timer from purple to amber to red as time runs out. Soft pulse makes the card gently breathe — no flashing.
-              </div>
-            </div>
-            <div class="panel">
-              <div class="ph">Chime <div class="ph-line"></div></div>
-              <div class="setting-row">
-                <label class="setting-lbl">Warning chime</label>
-                <select class="field-select" id="set-warn-chime" style="flex:1;" onchange="if(!STAGING)startEditing();STAGING.config.warnChime=this.value;">
-                  <option value="soft">Soft chime (gentle bells)</option>
-                  <option value="bowl">Singing bowl (calm, resonant)</option>
-                  <option value="marimba">Marimba (light, cheerful)</option>
-                  <option value="none">No chime</option>
-                </select>
-              </div>
-              <div style="font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.6;">
-                Plays once when the warning window begins. The end-of-timer chime is always three descending tones — different so your child learns to tell them apart.
-              </div>
-            </div>
+
           </div>
-          <div class="ptab-content" id="pc-settings">
+<div class="ptab-content" id="pc-settings">
             <div class="panel">
               <div class="ph">Profile <div class="ph-line"></div></div>
               <div class="setting-row">
@@ -1870,12 +1925,6 @@ function deleteReward(id){if(!STAGING)startEditing();STAGING.rewards=STAGING.rew
 function addReward(){if(!STAGING)startEditing();STAGING.rewards.push({id:uid(),name:'New Reward',icon:'⭐',desc:'',cost:100,active:true});renderRewardEditor();}
 
 // -- SETTINGS EDITOR --
-function renderWarningsEditor(){
-  var cfg=(STAGING||DB).config;
-  var wm=el('set-warn-mins');if(wm&&wm.tagName)wm.value=cfg.warnMins||5;
-  var wv=el('set-warn-visual');if(wv&&wv.tagName)wv.value=cfg.warnVisual||'both';
-  var wc=el('set-warn-chime');if(wc&&wc.tagName)wc.value=cfg.warnChime||'soft';
-}
 
 function renderSettingsEditor(){
   el('set-kidname').value=DB.config.kidName||'';
@@ -2225,6 +2274,153 @@ function resetTimerWarning(cardEl, timerEl, fillEl){
   }
   var tint=el('warn-tint');
   if(tint&&tint.classList){tint.classList.remove('warn-active');tint.classList.remove('end-active');}
+}
+
+// -- WARNING PREVIEW --
+var wpVisual = 'color';
+var wpChime = 'soft';
+var wpAnimating = false;
+
+function wpSetVisual(v){
+  if(!STAGING)startEditing();
+  STAGING.config.warnVisual=v;
+  wpVisual=v;
+  ['color','pulse','both'].forEach(function(id){
+    var btn=el('wopt-'+id);
+    if(btn&&btn.classList){
+      btn.classList.toggle('warn-opt-active',id===v);
+    }
+  });
+}
+
+function wpSetChime(c){
+  if(!STAGING)startEditing();
+  STAGING.config.warnChime=c;
+  wpChime=c;
+  ['soft','bowl','marimba','none'].forEach(function(id){
+    var btn=el('wopt-'+id);
+    if(btn&&btn.classList){
+      btn.classList.toggle('warn-opt-active',id===c);
+    }
+  });
+}
+
+function wpPlayChime(type){
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    if(type==='soft'){
+      [[523,0],[659,0.6],[784,1.2]].forEach(function(p){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.type='sine';o.frequency.value=p[0];
+        g.gain.setValueAtTime(0,ctx.currentTime+p[1]);
+        g.gain.linearRampToValueAtTime(0.12,ctx.currentTime+p[1]+0.05);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+p[1]+1.8);
+        o.start(ctx.currentTime+p[1]);o.stop(ctx.currentTime+p[1]+2);
+      });
+    } else if(type==='bowl'){
+      [[220,0.12],[440,0.06],[660,0.03]].forEach(function(pair){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.type='sine';o.frequency.value=pair[0];
+        g.gain.setValueAtTime(0.001,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(pair[1],ctx.currentTime+0.08);
+        g.gain.setValueAtTime(pair[1],ctx.currentTime+0.15);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+4.0);
+        o.start(ctx.currentTime);o.stop(ctx.currentTime+4.2);
+      });
+      var ob=ctx.createOscillator(),gb=ctx.createGain();
+      ob.connect(gb);gb.connect(ctx.destination);
+      ob.type='sine';ob.frequency.value=222;
+      gb.gain.setValueAtTime(0.001,ctx.currentTime);
+      gb.gain.linearRampToValueAtTime(0.04,ctx.currentTime+0.1);
+      gb.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3.5);
+      ob.start(ctx.currentTime);ob.stop(ctx.currentTime+4.0);
+    } else if(type==='marimba'){
+      [[880,0],[1047,0.22],[1319,0.44],[1047,0.66]].forEach(function(p){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.type='triangle';o.frequency.value=p[0];
+        g.gain.setValueAtTime(0,ctx.currentTime+p[1]);
+        g.gain.linearRampToValueAtTime(0.1,ctx.currentTime+p[1]+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+p[1]+0.55);
+        o.start(ctx.currentTime+p[1]);o.stop(ctx.currentTime+p[1]+0.7);
+      });
+    }
+  }catch(e){}
+}
+
+function wpPreview(mode){
+  if(wpAnimating)wpReset();
+  wpAnimating=true;
+  var timerEl=el('wp-timer');
+  var fillEl=el('wp-fill');
+  var card=el('warn-preview-card');
+  if(mode==='warn'){
+    // Play chime
+    if(wpChime!=='none') wpPlayChime(wpChime);
+    // Show warning visual
+    if(wpVisual==='color'||wpVisual==='both'){
+      if(timerEl){timerEl.style.color='#fff';timerEl.style.background='var(--xp)';timerEl.style.borderRadius='10px';timerEl.style.padding='4px 16px';}
+      if(fillEl) fillEl.style.background='var(--xp)';
+      setTimeout(function(){
+        if(timerEl) timerEl.style.background='var(--red)';
+        if(fillEl) fillEl.style.background='var(--red)';
+      },2000);
+    }
+    if(wpVisual==='pulse'||wpVisual==='both'){
+      if(card) card.classList.add('warn-preview-pulse');
+    }
+    if(el('wp-timer-lbl')) el('wp-timer-lbl').textContent='warning — 4 min left';
+    el('wp-timer').textContent='04:00';
+  } else {
+    // End chime
+    try{
+      var ctx=new(window.AudioContext||window.webkitAudioContext)();
+      [[784,0],[659,0.4],[523,0.8]].forEach(function(p){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.type='sine';o.frequency.value=p[0];
+        g.gain.setValueAtTime(0,ctx.currentTime+p[1]);
+        g.gain.linearRampToValueAtTime(0.13,ctx.currentTime+p[1]+0.05);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+p[1]+1.5);
+        o.start(ctx.currentTime+p[1]);o.stop(ctx.currentTime+p[1]+1.8);
+      });
+    }catch(e){}
+    if(timerEl){timerEl.style.color='#fff';timerEl.style.background='var(--red)';timerEl.style.borderRadius='10px';timerEl.style.padding='4px 16px';}
+    if(fillEl) fillEl.style.background='var(--red)';
+    if(card) card.classList.add('warn-preview-pulse');
+    el('wp-timer').textContent="00:00";
+    if(el('wp-timer-lbl')) el('wp-timer-lbl').textContent="time\'s up!";
+  }
+}
+
+function wpReset(){
+  wpAnimating=false;
+  var timerEl=el('wp-timer');
+  var fillEl=el('wp-fill');
+  var card=el('warn-preview-card');
+  if(timerEl){timerEl.style.color='';timerEl.style.background='';timerEl.style.borderRadius='';timerEl.style.padding='';timerEl.textContent='04:00';}
+  if(fillEl){fillEl.style.background='';fillEl.style.width='30%';}
+  if(card) card.classList.remove('warn-preview-pulse');
+  if(el('wp-timer-lbl')) el('wp-timer-lbl').textContent='time remaining';
+}
+
+function renderWarningsEditor(){
+  var cfg=(STAGING||DB).config;
+  var wm=el('set-warn-mins');if(wm&&wm.tagName)wm.value=cfg.warnMins||5;
+  wpVisual=cfg.warnVisual||'both';
+  wpChime=cfg.warnChime||'soft';
+  // Sync button states
+  ['color','pulse','both'].forEach(function(id){
+    var btn=el('wopt-'+id);
+    if(btn&&btn.classList) btn.classList.toggle('warn-opt-active',id===wpVisual);
+  });
+  ['soft','bowl','marimba','none'].forEach(function(id){
+    var btn=el('wopt-'+id);
+    if(btn&&btn.classList) btn.classList.toggle('warn-opt-active',id===wpChime);
+  });
+  wpReset();
 }
 
 boot();
