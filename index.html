@@ -148,7 +148,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);}
 body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-webkit-font-smoothing:antialiased;}
 
 /* -- SPLASH -- */
-#splash{position:fixed;inset:0;background:var(--bg);z-index:9990;
+#splash{position:fixed;inset:0;background:var(--bg);z-index:9990;padding-top:env(safe-area-inset-top);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:40px;pointer-events:none;}
 .sp-logo{display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .5s .1s ease forwards;}
 .sp-s{width:48px;height:48px;background:var(--accent);border-radius:13px;
@@ -183,7 +183,9 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 
 /* -- TOPBAR -- */
 .topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 16px;
-  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;height:56px;}
+  padding-top:env(safe-area-inset-top);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+  min-height:56px;height:calc(56px + env(safe-area-inset-top));}
 .tb-l{display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden;}
 .tb-s{width:30px;height:30px;background:var(--accent);border-radius:8px;
   display:flex;align-items:center;justify-content:center;
