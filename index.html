@@ -534,6 +534,30 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 
 
 /* -- PARENT DASHBOARD -- */
+.parent-save-bar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--accent);
+  padding:10px 14px;border-radius:var(--radius-sm);
+  margin-bottom:12px;gap:10px;
+}
+.parent-save-hint{
+  font-size:11px;font-weight:600;color:#fff;flex:1;text-align:center;opacity:.85;
+}
+.btn-save-confirm{
+  background:#fff;color:var(--accent);border:none;
+  font-family:"Sora",sans-serif;font-size:12px;font-weight:700;
+  padding:8px 14px;border-radius:var(--radius-xs);cursor:pointer;
+  white-space:nowrap;
+}
+.btn-save-confirm:active{opacity:.8;}
+.btn-save-cancel{
+  background:rgba(255,255,255,.2);color:#fff;border:none;
+  font-family:"Sora",sans-serif;font-size:12px;font-weight:600;
+  padding:8px 14px;border-radius:var(--radius-xs);cursor:pointer;
+  white-space:nowrap;
+}
+.btn-save-cancel:active{opacity:.8;}
 .parent-tabs{display:flex;gap:4px;margin-bottom:14px;background:var(--panel);
   border:1px solid var(--border);border-radius:var(--radius);padding:4px;}
 .ptab{flex:1;padding:8px 4px;border:none;background:transparent;border-radius:var(--radius-sm);
@@ -606,6 +630,30 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .parent-btn:hover{border-color:var(--accent);transform:scale(1.05);}
 .parent-btn:active{transform:scale(.95);}
 
+
+/* -- TIMER WARNING STYLES -- */
+@keyframes gentlePulse{
+  0%,100%{transform:scale(1);box-shadow:var(--shadow);}
+  50%{transform:scale(1.012);box-shadow:0 0 24px rgba(124,58,237,.2);}
+}
+@keyframes gentlePulseWarn{
+  0%,100%{transform:scale(1);box-shadow:var(--shadow);}
+  50%{transform:scale(1.015);box-shadow:0 0 28px rgba(240,165,0,.25);}
+}
+@keyframes gentlePulseEnd{
+  0%,100%{transform:scale(1);box-shadow:var(--shadow);}
+  50%{transform:scale(1.018);box-shadow:0 0 32px rgba(248,113,113,.3);}
+}
+.timer-pulse-warn{animation:gentlePulseWarn 2.5s ease-in-out infinite;}
+.timer-pulse-end{animation:gentlePulseEnd 1.8s ease-in-out infinite;}
+
+/* Screen tint overlay */
+#warn-tint{
+  position:fixed;inset:0;pointer-events:none;z-index:9990;opacity:0;
+  transition:opacity 3s ease;background:rgba(240,165,0,.06);
+}
+#warn-tint.warn-active{opacity:1;}
+#warn-tint.end-active{background:rgba(248,113,113,.08);opacity:1;}
 /* -- THEME TOGGLE -- */
 .theme-toggle{background:var(--panel2);border:1px solid var(--border);border-radius:20px;
   padding:5px 10px;cursor:pointer;font-size:14px;line-height:1;
@@ -627,6 +675,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 </head>
 <body>
 
+<div id="warn-tint"></div>
 <div class="toast" id="toast"></div>
 <div class="xp-flash" id="xp-flash"></div>
 <div class="time-flash" id="time-flash"></div>
@@ -679,12 +728,12 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
       <div class="tb-s">S</div>
       <div class="tb-info">
         <div class="tb-title" id="app-title">stackd</div>
-        <div class="tb-sub">Homeschool tracker</div>
+        <div class="tb-sub" id="tb-sub">Daily routine</div>
       </div>
     </div>
     <div class="tb-r">
       <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark">🌙</button>
-      <button class="parent-btn" onclick="navParent()" title="Parent Dashboard">🔒</button>
+      <button class="parent-btn" onclick="navParent()">Parent</button>
       <div class="live-chip"><div class="live-dot blink"></div>Live</div>
       <div class="tb-clock-wrap">
         <div class="tb-clk" id="clk">--:--</div>
@@ -702,7 +751,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 
           <div class="greeting-card">
             <div class="g-eyebrow" id="b-tod-label">Good morning</div>
-            <div class="g-name">Let's get it. 👊</div>
+            <div class="g-name" id="b-greeting-name">Hey! 👊</div>
             <div class="g-level">Level <span id="b-rank-display">1 · Rookie</span></div>
           </div>
 
@@ -862,9 +911,15 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 
       <!-- PARENT DASHBOARD -->
       <div class="screen" id="s-parent">
-          <div class="parent-tabs">
+          <div class="parent-save-bar" id="parent-save-bar" style="display:none;">
+          <button class="btn-save-cancel" onclick="cancelParentChanges()">Cancel</button>
+          <span class="parent-save-hint" id="parent-save-hint">Unsaved changes</span>
+          <button class="btn-save-confirm" onclick="saveParentChanges()">Save Changes</button>
+        </div>
+        <div class="parent-tabs">
             <button class="ptab active" id="ptab-school" onclick="ptab('school')">School</button>
             <button class="ptab" id="ptab-rewards" onclick="ptab('rewards')">Rewards</button>
+            <button class="ptab" id="ptab-warnings" onclick="ptab('warnings')">Warnings</button>
             <button class="ptab" id="ptab-settings" onclick="ptab('settings')">Settings</button>
           </div>
           <div class="ptab-content active" id="pc-school">
@@ -885,12 +940,56 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
             </div>
             <div id="reward-editor-list"></div>
           </div>
+          <div class="ptab-content" id="pc-warnings">
+            <div class="panel">
+              <div class="ph">Warning trigger <div class="ph-line"></div></div>
+              <div class="setting-row">
+                <label class="setting-lbl">Warn at</label>
+                <select class="field-select" id="set-warn-mins" style="flex:1;" onchange="if(!STAGING)startEditing();STAGING.config.warnMins=parseInt(this.value);">
+                  <option value="2">2 minutes left</option>
+                  <option value="3">3 minutes left</option>
+                  <option value="5">5 minutes left</option>
+                  <option value="7">7 minutes left</option>
+                  <option value="10">10 minutes left</option>
+                </select>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="ph">Visual style <div class="ph-line"></div></div>
+              <div class="setting-row">
+                <label class="setting-lbl">Style</label>
+                <select class="field-select" id="set-warn-visual" style="flex:1;" onchange="if(!STAGING)startEditing();STAGING.config.warnVisual=this.value;">
+                  <option value="color">Color shift (purple to yellow to red)</option>
+                  <option value="pulse">Soft pulse only</option>
+                  <option value="both">Both color + pulse</option>
+                </select>
+              </div>
+              <div style="font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.6;">
+                Color shift gradually changes the timer from purple to amber to red as time runs out. Soft pulse makes the card gently breathe — no flashing.
+              </div>
+            </div>
+            <div class="panel">
+              <div class="ph">Chime <div class="ph-line"></div></div>
+              <div class="setting-row">
+                <label class="setting-lbl">Warning chime</label>
+                <select class="field-select" id="set-warn-chime" style="flex:1;" onchange="if(!STAGING)startEditing();STAGING.config.warnChime=this.value;">
+                  <option value="soft">Soft chime (gentle bells)</option>
+                  <option value="bowl">Singing bowl (calm, resonant)</option>
+                  <option value="marimba">Marimba (light, cheerful)</option>
+                  <option value="none">No chime</option>
+                </select>
+              </div>
+              <div style="font-size:11px;color:var(--txt3);margin-top:8px;line-height:1.6;">
+                Plays once when the warning window begins. The end-of-timer chime is always three descending tones — different so your child learns to tell them apart.
+              </div>
+            </div>
+          </div>
           <div class="ptab-content" id="pc-settings">
             <div class="panel">
               <div class="ph">Profile <div class="ph-line"></div></div>
               <div class="setting-row">
                 <label class="setting-lbl">Kid's name</label>
-                <input class="setting-input" id="set-kidname" type="text" placeholder="e.g. Lincoln" oninput="DB.config.kidName=this.value;DB.save();">
+                <input class="setting-input" id="set-kidname" type="text" placeholder="e.g. Lincoln" oninput="if(!STAGING)startEditing();STAGING.config.kidName=this.value;">
               </div>
             </div>
             <div class="panel">
@@ -1084,6 +1183,45 @@ const DB = {
   // _exportPayload(){ return {schedule:this.schedule,tasks:this.tasks,subjects:this.subjects,rewards:this.rewards,config:this.config}; },
 };
 
+// -- STAGING (edit buffer) --
+var STAGING = null; // holds deep copy of DB data while editing
+
+function startEditing(){
+  STAGING = {
+    schedule: JSON.parse(JSON.stringify(DB.schedule)),
+    tasks:    JSON.parse(JSON.stringify(DB.tasks)),
+    subjects: JSON.parse(JSON.stringify(DB.subjects)),
+    rewards:  JSON.parse(JSON.stringify(DB.rewards)),
+    config:   JSON.parse(JSON.stringify(DB.config)),
+  };
+  el("parent-save-bar").style.display="flex";
+}
+
+function saveParentChanges(){
+  if(!STAGING)return;
+  DB.schedule = STAGING.schedule;
+  DB.tasks    = STAGING.tasks;
+  DB.subjects = STAGING.subjects;
+  DB.rewards  = STAGING.rewards;
+  DB.config   = STAGING.config;
+  DB.save();
+  STAGING = null;
+  el("parent-save-bar").style.display="none";
+  showToast("Changes saved ✓");
+  updateKidName();
+  nav('brief');
+}
+
+function cancelParentChanges(){
+  STAGING = null;
+  el("parent-save-bar").style.display="none";
+  showToast("Changes discarded.");
+  nav('brief');
+}
+
+// Helper: get active data (staging if editing, else DB)
+function getData(key){ return STAGING ? STAGING[key] : DB[key]; }
+
 // -- CONSTANTS --
 const RANKS=[
   {name:'Rookie',abbr:'RK',min:0,max:500},
@@ -1165,7 +1303,10 @@ function getRankData(){
 // -- HOME --
 function renderBrief(){
   const h=new Date().getHours();
-  el('b-tod-label').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  var kidName=DB.config.kidName||'there';
+  var tod=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  el('b-tod-label').textContent=tod+', '+kidName+'.';
+  el("b-greeting-name").textContent=tod==="Good morning"?"Rise and grind! 💪":"Hey, "+kidName+"! 👋";
   const{rank,total,next,pct}=getRankData();
   el('b-rank-display').textContent=rank.name+' · '+total.toLocaleString()+' XP';
   el('b-rank-abbr').textContent=rank.abbr;
@@ -1327,6 +1468,8 @@ function loadLesson(idx){
   const l=lessons[idx];DB.setSchoolCurIdx(idx);
   clearInterval(schoolTimerInterval);
   schoolTimerSecs=l.duration*60;schoolTimerTotal=schoolTimerSecs;schoolTimerAlerted=false;
+  warnTriggered=false;
+  resetTimerWarning(document.querySelector('.school-hero'),el('sh-timer'),el('sh-fill'));
   reloadLessonDisplay(idx);updateSchoolTimer();
   el('sh-fill').style.width='0%';
   el('sh-fill').classList.remove('warn');
@@ -1341,20 +1484,31 @@ function loadLesson(idx){
 function tickSchoolTimer(){
   schoolTimerSecs--;if(schoolTimerSecs<0)schoolTimerSecs=0;
   updateSchoolTimer();
-  const pct=schoolTimerTotal>0?Math.min(100,Math.round(((schoolTimerTotal-schoolTimerSecs)/schoolTimerTotal)*100)):0;
+  var elapsed=schoolTimerTotal-schoolTimerSecs;
+  var pct=schoolTimerTotal>0?Math.min(100,Math.round((elapsed/schoolTimerTotal)*100)):0;
   el('sh-fill').style.width=pct+'%';
-  const warn=schoolTimerSecs<=120&&schoolTimerSecs>0;
-  el('sh-fill').classList.toggle('warn',warn);
-  el('sh-timer').classList.toggle('warn',warn);
+
+  // Apply warning system
+  applyTimerWarning(
+    schoolTimerSecs,
+    schoolTimerTotal,
+    el('sh-timer'),
+    el('sh-fill'),
+    document.querySelector('.school-hero')
+  );
+
   if(schoolTimerSecs===0&&!schoolTimerAlerted){
-    schoolTimerAlerted=true;clearInterval(schoolTimerInterval);
-    flashScreen();playAlert();
+    schoolTimerAlerted=true;
+    clearInterval(schoolTimerInterval);
+    playEndChime();
     el('sh-timer-lbl').textContent='Time\'s up!';
-    const btn=el('sh-done-btn');
-    btn.textContent='Time\'s Up - Move On';btn.className='btn btn-danger';
+    var btn=el('sh-done-btn');
+    btn.textContent='Time\'s Up - Move On';
+    btn.className='btn btn-danger';
     showToast('Time\'s up - move to the next subject.');
   }
 }
+
 function updateSchoolTimer(){el('sh-timer').textContent=fmtSecs(schoolTimerSecs);}
 
 function startSchool(){
@@ -1509,7 +1663,7 @@ function renderDebrief(){
   el('d-nxp').textContent=next?next.min.toLocaleString():'MAX';
   el('d-streak').textContent=streak;
   let score,grade,color,msg;
-  if(pct===100){score='100%';grade='Perfect Day';color='var(--grn)';msg='Every single task done. That\'s a perfect day. You earned it.';}
+  if(pct===100){score='100%';grade='Perfect Day';color='var(--grn)';msg='Every single task done, '+kidName+'! That\'s a perfect day. You earned it.';}
   else if(pct>=80){score=pct+'%';grade='Strong Day';color='var(--xp)';msg='Really solid effort. A few things left - finish strong tomorrow.';}
   else if(pct>=50){score=pct+'%';grade='Getting There';color='var(--txt)';msg='You\'ve got more in you. Tomorrow is another shot at it.';}
   else if(pct>0){score=pct+'%';grade='Rough Day';color='var(--red)';msg='Not your best day - that\'s okay. Tomorrow is a fresh start.';}
@@ -1527,13 +1681,8 @@ function renderDebrief(){
 // PARENT DASHBOARD
 // ================================================
 function renderParent(){
-  if(!parentUnlocked){
-    // show PIN instead
-    return;
-  }
-  // parent content is always in DOM
-  // Populate settings
-  el('set-kidname').value=DB.config.kidName||'';
+  startEditing();
+  el('set-kidname').value=(STAGING?STAGING.config.kidName:DB.config.kidName)||'';
   ptab('school');
 }
 
@@ -1543,6 +1692,7 @@ function ptab(name){
   var t=el('ptab-'+name);if(t&&t.classList)t.classList.add('active');
   var c=el('pc-'+name);if(c&&c.classList)c.classList.add('active');
   if(name==='schedule'&&typeof renderBlockEditor==='function')renderBlockEditor();
+  else if(name==='warnings'&&typeof renderWarningsEditor==='function')renderWarningsEditor();
   else if(name==='tasks'&&typeof renderTaskEditor==='function')renderTaskEditor();
   else if(name==='school'&&typeof renderSchoolEditor==='function')renderSchoolEditor();
   else if(name==='rewards'&&typeof renderRewardEditor==='function')renderRewardEditor();
@@ -1553,7 +1703,8 @@ function ptab(name){
 function renderBlockEditor(){
   const list=el('block-editor-list');if(!list)return;
   list.innerHTML='';
-  DB.schedule.forEach(function(b,idx){
+  var data=STAGING||DB;
+  data.schedule.forEach(function(b,idx){
     const cats=['wake','meal','school','chore','free','bed','bath','xbox'];
     const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
     const card=document.createElement('div');
@@ -1609,7 +1760,7 @@ function renderSubitems(blockId){
 
 function updateBlock(id,key,val){const b=DB.schedule.find(b=>b.id===id);if(b){b[key]=val;DB.save();if(key==='block')renderBlockEditor();}}
 function deleteBlock(id){DB.schedule=DB.schedule.filter(b=>b.id!==id);DB.save();renderBlockEditor();}
-function addBlock(){DB.schedule.push({id:uid(),block:'New Block',category:'free',start:'',end:'',xp:0,days:'all',items:[]});DB.save();renderBlockEditor();}
+function addBlock(){if(!STAGING)startEditing();STAGING.schedule.push({id:uid(),block:'New Block',category:'free',start:'',end:'',xp:0,days:'all',items:[]});renderBlockEditor();}
 function addSubitem(blockId){const b=DB.schedule.find(b=>b.id===blockId);if(!b)return;if(!b.items)b.items=[];b.items.push({id:uid(),name:'',start:'',xp:0});DB.save();renderSubitems(blockId);}
 function updateSubitem(blockId,idx,key,val){const b=DB.schedule.find(b=>b.id===blockId);if(b&&b.items[idx]){b.items[idx][key]=val;DB.save();}}
 function deleteSubitem(blockId,idx){const b=DB.schedule.find(b=>b.id===blockId);if(b){b.items.splice(idx,1);DB.save();renderSubitems(blockId);}}
@@ -1620,7 +1771,8 @@ function renderTaskEditor(){
   list.innerHTML='';
   const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
   const cats=['chore','free','school','wake','meal','bed'];
-  DB.tasks.forEach(function(t){
+  var data=STAGING||DB;
+  data.tasks.forEach(function(t){
     const card=document.createElement('div');card.className='editor-card';
     const hdr=document.createElement('div');hdr.className='editor-card-hdr';
     const title=document.createElement('span');title.className='editor-card-title';title.textContent=t.name||'Untitled Task';
@@ -1641,7 +1793,7 @@ function renderTaskEditor(){
 
 function updateTask(id,key,val){const t=DB.tasks.find(t=>t.id===id);if(t){t[key]=val;DB.save();if(key==='name')renderTaskEditor();}}
 function deleteTask(id){DB.tasks=DB.tasks.filter(t=>t.id!==id);DB.save();renderTaskEditor();}
-function addTask(){DB.tasks.push({id:uid(),name:'New Task',xp:20,days:'all',category:'chore'});DB.save();renderTaskEditor();}
+function addTask(){if(!STAGING)startEditing();STAGING.tasks.push({id:uid(),name:'New Task',xp:20,days:'all',category:'chore'});renderTaskEditor();}
 
 // -- SCHOOL EDITOR --
 function renderSchoolEditor(){
@@ -1649,12 +1801,13 @@ function renderSchoolEditor(){
   if(togWrap){
     togWrap.innerHTML='';
     ['mon','tue','wed','thu','fri','sat','sun'].forEach(function(d){
-      const on=(DB.config.schoolDays||[]).includes(d);
+      const on=((STAGING||DB).config.schoolDays||[]).includes(d);
       const btn=document.createElement('button');
       btn.className='day-toggle'+(on?' on':'');
       btn.textContent=DAY_LABELS[d];
       btn.onclick=function(){
-        const days=DB.config.schoolDays||[];
+        if(!STAGING)startEditing();
+      const days=STAGING.config.schoolDays||[];
         const i=days.indexOf(d);
         if(i>=0)days.splice(i,1);else days.push(d);
         DB.config.schoolDays=days;DB.save();renderSchoolEditor();
@@ -1665,7 +1818,8 @@ function renderSchoolEditor(){
   const list=el('subject-editor-list');if(!list)return;
   list.innerHTML='';
   const dayOpts=[['all','Every day'],['mon,tue,wed,thu,fri','Weekdays'],['mon,wed,fri','Mon/Wed/Fri'],['tue,thu','Tue/Thu'],['sat,sun','Weekends']];
-  DB.subjects.forEach(function(s){
+  var data=STAGING||DB;
+  data.subjects.forEach(function(s){
     const card=document.createElement('div');card.className='editor-card';
     const hdr=document.createElement('div');hdr.className='editor-card-hdr';
     const title=document.createElement('span');title.className='editor-card-title';title.textContent=s.name||'Untitled Subject';
@@ -1682,18 +1836,21 @@ function renderSchoolEditor(){
     card.append(hdr,grid);
     list.appendChild(card);
   });
+  // Populate warning settings
+
   if(!DB.subjects.length)list.innerHTML='<div class="loading-msg">No subjects yet. Tap + Add Subject.</div>';
 }
 
 function updateSubject(id,key,val){const s=DB.subjects.find(s=>s.id===id);if(s){s[key]=val;DB.save();if(key==='name')renderSchoolEditor();}}
 function deleteSubject(id){DB.subjects=DB.subjects.filter(s=>s.id!==id);DB.save();renderSchoolEditor();}
-function addSubject(){DB.subjects.push({id:uid(),name:'New Subject',duration:30,xp:50,link:'',days:'mon,tue,wed,thu,fri'});DB.save();renderSchoolEditor();}
+function addSubject(){if(!STAGING)startEditing();STAGING.subjects.push({id:uid(),name:'New Subject',duration:30,xp:50,link:'',days:'mon,tue,wed,thu,fri'});renderSchoolEditor();}
 
 // -- REWARD EDITOR --
 function renderRewardEditor(){
   const list=el('reward-editor-list');if(!list)return;
   list.innerHTML='';
-  DB.rewards.forEach(function(r){
+  var data=STAGING||DB;
+  data.rewards.forEach(function(r){
     const card=document.createElement('div');card.className='editor-card';
     const hdr=document.createElement('div');hdr.className='editor-card-hdr';
     const title=document.createElement('span');title.className='editor-card-title';title.textContent=(r.icon||'⭐')+' '+(r.name||'Untitled');
@@ -1714,18 +1871,26 @@ function renderRewardEditor(){
 
 function updateReward(id,key,val){const r=DB.rewards.find(r=>r.id===id);if(r){r[key]=val;DB.save();if(key==='name'||key==='icon')renderRewardEditor();}}
 function deleteReward(id){DB.rewards=DB.rewards.filter(r=>r.id!==id);DB.save();renderRewardEditor();}
-function addReward(){DB.rewards.push({id:uid(),name:'New Reward',icon:'⭐',desc:'',cost:100,active:true});DB.save();renderRewardEditor();}
+function addReward(){if(!STAGING)startEditing();STAGING.rewards.push({id:uid(),name:'New Reward',icon:'⭐',desc:'',cost:100,active:true});renderRewardEditor();}
 
 // -- SETTINGS EDITOR --
+function renderWarningsEditor(){
+  var cfg=(STAGING||DB).config;
+  var wm=el('set-warn-mins');if(wm&&wm.tagName)wm.value=cfg.warnMins||5;
+  var wv=el('set-warn-visual');if(wv&&wv.tagName)wv.value=cfg.warnVisual||'both';
+  var wc=el('set-warn-chime');if(wc&&wc.tagName)wc.value=cfg.warnChime||'soft';
+}
+
 function renderSettingsEditor(){
   el('set-kidname').value=DB.config.kidName||'';
 }
 function saveNewPin(){
   const v=el('set-pin').value;
   if(v.length!==4||isNaN(v)){showToast('PIN must be exactly 4 digits.');return;}
-  DB.config.pin=v;DB.save();
+  if(!STAGING)startEditing();
+  STAGING.config.pin=v;
   el('set-pin').value='';
-  showToast('PIN updated ✓');
+  showToast('PIN will update on Save.');
 }
 function lockParent(){
   parentUnlocked=false;
@@ -1907,6 +2072,159 @@ async function boot(){
     },line.delay);
   });
   setTimeout(launchApp,2200);
+}
+
+function updateKidName(){
+  var name=DB.config.kidName||'';
+  el('tb-sub').textContent=name?name+"'s daily routine":'Daily routine';
+}
+
+// ── TIMER WARNING SYSTEM ──
+var warnTriggered = false;
+
+function getWarnMins(){ return (DB.config.warnMins)||5; }
+function getWarnVisual(){ return DB.config.warnVisual||'both'; }
+function getWarnChime(){ return DB.config.warnChime||'soft'; }
+
+function playWarnChime(){
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    var style=getWarnChime();
+    if(style==='none')return;
+
+    if(style==='soft'){
+      // Gentle bell tones — spaced, calm
+      [[523,0],[659,0.6],[784,1.2]].forEach(function(p){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.type='sine';o.frequency.value=p[0];
+        g.gain.setValueAtTime(0,ctx.currentTime+p[1]);
+        g.gain.linearRampToValueAtTime(0.12,ctx.currentTime+p[1]+0.05);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+p[1]+1.8);
+        o.start(ctx.currentTime+p[1]);
+        o.stop(ctx.currentTime+p[1]+2);
+      });
+    } else if(style==='bowl'){
+      // Singing bowl — single low resonant tone that fades slowly
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      var o2=ctx.createOscillator(),g2=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o2.connect(g2);g2.connect(ctx.destination);
+      o.type='sine';o.frequency.value=220;
+      o2.type='sine';o2.frequency.value=221; // slight detune for beating effect
+      g.gain.setValueAtTime(0,ctx.currentTime);
+      g.gain.linearRampToValueAtTime(0.1,ctx.currentTime+0.1);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3.5);
+      g2.gain.setValueAtTime(0,ctx.currentTime);
+      g2.gain.linearRampToValueAtTime(0.07,ctx.currentTime+0.1);
+      g2.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3.5);
+      o.start(ctx.currentTime);o.stop(ctx.currentTime+4);
+      o2.start(ctx.currentTime);o2.stop(ctx.currentTime+4);
+    } else if(style==='marimba'){
+      // Light marimba — two cheerful notes
+      [[880,0],[1047,0.25],[1319,0.5],[1047,0.75]].forEach(function(p){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.type='triangle';o.frequency.value=p[0];
+        g.gain.setValueAtTime(0,ctx.currentTime+p[1]);
+        g.gain.linearRampToValueAtTime(0.1,ctx.currentTime+p[1]+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+p[1]+0.6);
+        o.start(ctx.currentTime+p[1]);
+        o.stop(ctx.currentTime+p[1]+0.7);
+      });
+    }
+  }catch(e){}
+}
+
+function playEndChime(){
+  // Distinct end chime — three descending tones, calm but noticeable
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [[784,0,'sine'],[659,0.4,'sine'],[523,0.8,'sine']].forEach(function(p){
+      var o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.type=p[2];o.frequency.value=p[0];
+      g.gain.setValueAtTime(0,ctx.currentTime+p[1]);
+      g.gain.linearRampToValueAtTime(0.13,ctx.currentTime+p[1]+0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+p[1]+1.5);
+      o.start(ctx.currentTime+p[1]);
+      o.stop(ctx.currentTime+p[1]+1.8);
+    });
+  }catch(e){}
+}
+
+function applyTimerWarning(secsRemaining, totalSecs, timerEl, fillEl, cardEl){
+  var warnSecs = getWarnMins()*60;
+  var visual = getWarnVisual();
+  var tint = el('warn-tint');
+
+  if(secsRemaining <= 0){
+    // TIME'S UP
+    if(timerEl&&timerEl.style) timerEl.style.color='var(--red)';
+    if(fillEl&&fillEl.style) fillEl.style.background='var(--red)';
+    if(cardEl&&cardEl.classList){
+      cardEl.classList.remove('timer-pulse-warn');
+      if(visual==='pulse'||visual==='both') cardEl.classList.add('timer-pulse-end');
+    }
+    if(tint&&tint.classList){tint.classList.remove('warn-active');tint.classList.add('end-active');}
+    return;
+  }
+
+  if(secsRemaining <= warnSecs){
+    // Progress 0 (just entered warning) to 1 (at 0)
+    var progress = 1 - (secsRemaining/warnSecs);
+
+    // Color shift: interpolate accent→yellow→red
+    if(visual==='color'||visual==='both'){
+      var timerColor, fillColor;
+      if(progress < 0.5){
+        // purple → yellow
+        timerColor = 'var(--xp)';
+        fillColor = 'var(--xp)';
+      } else {
+        // yellow → red
+        timerColor = 'var(--red)';
+        fillColor = 'var(--red)';
+      }
+      if(timerEl&&timerEl.style) timerEl.style.color=timerColor;
+      if(fillEl&&fillEl.style) fillEl.style.background=fillColor;
+    }
+
+    // Pulse
+    if(visual==='pulse'||visual==='both'){
+      if(cardEl&&cardEl.classList) cardEl.classList.add('timer-pulse-warn');
+    }
+
+    // Tint
+    if(tint&&tint.classList) tint.classList.add('warn-active');
+
+    // Chime — only once when first entering warning window
+    if(!warnTriggered){
+      warnTriggered=true;
+      playWarnChime();
+    }
+  } else {
+    // Outside warning window — reset everything
+    if(timerEl&&timerEl.style) timerEl.style.color='';
+    if(fillEl&&fillEl.style) fillEl.style.background='';
+    if(cardEl&&cardEl.classList){
+      cardEl.classList.remove('timer-pulse-warn');
+      cardEl.classList.remove('timer-pulse-end');
+    }
+    if(tint&&tint.classList){tint.classList.remove('warn-active');tint.classList.remove('end-active');}
+  }
+}
+
+function resetTimerWarning(cardEl, timerEl, fillEl){
+  warnTriggered = false;
+  if(timerEl&&timerEl.style) timerEl.style.color='';
+  if(fillEl&&fillEl.style) fillEl.style.background='';
+  if(cardEl&&cardEl.classList){
+    cardEl.classList.remove('timer-pulse-warn');
+    cardEl.classList.remove('timer-pulse-end');
+  }
+  var tint=el('warn-tint');
+  if(tint&&tint.classList){tint.classList.remove('warn-active');tint.classList.remove('end-active');}
 }
 
 boot();
