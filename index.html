@@ -7,8 +7,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Stackd">
-<meta name="theme-color" content="#4c1d95">
-<title>Stackd</title>
+<meta name="theme-color" content="#3b0764">
+<title>Stackd · School</title>
 <!-- Apply theme immediately to prevent flash -->
 <script>
 (function(){
@@ -145,7 +145,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 
 /* -- SPLASH -- */
 #splash{position:fixed;inset:0;background:var(--bg);z-index:9990;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:40px;}
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:40px;pointer-events:none;}
 .sp-logo{display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .5s .1s ease forwards;}
 .sp-s{width:48px;height:48px;background:var(--accent);border-radius:13px;
   display:flex;align-items:center;justify-content:center;
@@ -170,7 +170,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 .sp-bar-track{height:2px;background:var(--border);border-radius:1px;}
 .sp-bar-fill{height:100%;background:var(--xp);border-radius:1px;width:0%;transition:width .2s linear;
   box-shadow:0 0 8px var(--xp-glow);}
-.sp-out{animation:spOut .4s ease forwards!important;}
+.sp-out{animation:spOut .4s ease forwards!important;pointer-events:none;}
 @keyframes spOut{to{opacity:0;pointer-events:none;}}
 
 /* -- APP -- */
@@ -200,8 +200,8 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
 
 /* -- MAIN -- */
 .main-layout{flex:1;overflow:hidden;position:relative;}
-.content{position:absolute;top:0;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;background:var(--bg);-webkit-overflow-scrolling:touch;}
-.screen{display:none;padding:16px 16px 32px;}.screen.active{display:block;}
+.content{position:absolute;top:0;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;background:var(--bg);-webkit-overflow-scrolling:touch;touch-action:pan-y;}
+.screen{display:none;padding:16px 16px 32px;box-sizing:border-box;touch-action:pan-y;}.screen.active{display:block;}
 
 /* -- NAVBAR -- */
 .navbar{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);
@@ -679,7 +679,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
       <div class="tb-s">S</div>
       <div class="tb-info">
         <div class="tb-title" id="app-title">stackd</div>
-        <div class="tb-sub">Daily routine</div>
+        <div class="tb-sub">Homeschool tracker</div>
       </div>
     </div>
     <div class="tb-r">
@@ -719,48 +719,32 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
               </div>
             </div>
             <div class="stat-box">
-              <div class="stat-box-lbl">Weather</div>
-              <div class="stat-box-val" id="b-temp">--<sup>°F</sup></div>
-              <div class="stat-box-sub" id="b-cond">Loading...</div>
+              <div class="stat-box-lbl">Today's XP</div>
+              <div class="stat-box-val" id="b-temp" style="color:var(--xp)" id="home-school-xp">0</div>
+              <div class="stat-box-sub" id="b-cond">School XP today</div>
               <div class="stat-box-cells">
-                <div class="stat-cell"><div class="sc-lbl">Feels</div><div class="sc-val" id="b-fl">--</div></div>
-                <div class="stat-cell"><div class="sc-lbl">Wind</div><div class="sc-val" id="b-wnd">--</div></div>
-                <div class="stat-cell"><div class="sc-lbl">Humid</div><div class="sc-val" id="b-hum">--</div></div>
+                <div class="stat-cell"><div class="sc-lbl">Done</div><div class="sc-val" id="b-fl" id="home-done">0</div></div>
+                <div class="stat-cell"><div class="sc-lbl">Left</div><div class="sc-val" id="b-wnd" id="home-left">0</div></div>
+                <div class="stat-cell"><div class="sc-lbl">Total</div><div class="sc-val" id="b-hum" id="home-total">0</div></div>
               </div>
             </div>
           </div>
 
-          <div class="block-card">
-            <div class="bc-eyebrow">Right now</div>
+          <div class="block-card" id="home-school-card">
+            <div class="bc-eyebrow">Today's session</div>
             <div class="bc-name" id="b-block-name">Loading...</div>
-            <div class="bc-timer" id="b-timer">--:--</div>
-            <div class="bc-lbl">hours : minutes left</div>
+            <div class="bc-timer" id="b-timer" style="font-size:32px;">--</div>
+            <div class="bc-lbl">subjects remaining</div>
             <div class="bc-prog-track"><div class="bc-prog-fill" id="b-prog" style="width:0%"></div></div>
-            <div class="bc-next" id="b-next">Up next: <span>--</span></div>
+            <div class="bc-next" id="b-next">XP available: <span>--</span></div>
           </div>
 
-          <div class="panel">
-            <div class="ph">Today's timeline <div class="ph-line"></div></div>
-            <div class="upcoming-list" id="b-upcoming"><div class="loading-msg">Loading...</div></div>
-          </div>
 
-          <div class="btn-row">
-            <button class="btn btn-primary" onclick="nav('mission')">View Schedule</button>
-            <button class="btn btn-school" onclick="nav('school')">📚 School</button>
-          </div>
+
+          <button class="btn btn-school" onclick="nav('school')" style="margin-top:0;">📚 Start Today's Session</button>
 
         </div>
-      </div>
-
-      <!-- SCHEDULE -->
-      <div class="screen" id="s-mission">
-        <div class="panel">
-          <div class="ph">Today's schedule <div class="ph-line"></div><span class="ph-count" id="m-count"></span></div>
-          <div id="m-schedule"><div class="loading-msg">Loading...</div></div>
-        </div>
-      </div>
-
-      <!-- SCHOOL -->
+      </div><!-- SCHOOL -->
       <div class="screen" id="s-school">
 
         <div id="school-noday" style="display:none;">
@@ -819,28 +803,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
           <div class="sc-msg" id="sc-msg">All subjects done. Great work today.</div>
           <button class="btn btn-ghost" style="max-width:260px;margin:0 auto;" onclick="requirePin('resetschool')">↺ Reset (Parent)</button>
         </div>
-      </div>
-
-      <!-- TASKS -->
-      <div class="screen" id="s-activities">
-        <div class="xp-hero">
-          <div class="xp-lbl">XP Earned Today</div>
-          <div class="xp-val" id="a-xp-val">0</div>
-          <div class="xp-max" id="a-xp-max">/ 0 XP available</div>
-          <div class="xp-bar-track"><div class="xp-bar-fill" id="a-xp-fill" style="width:0%"></div></div>
-        </div>
-        <div class="panel">
-          <div class="ph">Schedule <div class="ph-line"></div><span class="ph-count" id="a-sched-count"></span></div>
-          <div id="a-sched-list"><div class="loading-msg">Loading...</div></div>
-        </div>
-        <div class="panel">
-          <div class="ph">Tasks <div class="ph-line"></div><span class="ph-count" id="a-count"></span></div>
-          <div id="a-chore-list"><div class="loading-msg">Loading...</div></div>
-        </div>
-        <button class="btn btn-ghost" onclick="requirePin('resetactivities')">↺ Reset All (Parent)</button>
-      </div>
-
-      <!-- REWARDS -->
+      </div><!-- REWARDS -->
       <div class="screen" id="s-rewards">
         <div class="xp-balance">
           <div>
@@ -872,7 +835,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
           <div class="rh-msg" id="d-msg">Check back at the end of the day.</div>
         </div>
         <div class="stat-grid">
-          <div class="stat-cell-box"><div class="stat-cell-lbl">Task XP</div><div class="stat-cell-val" id="d-chore-xp">0</div></div>
+          <div class="stat-cell-box"><div class="stat-cell-lbl">Session XP</div><div class="stat-cell-val" id="d-chore-xp">0</div></div>
           <div class="stat-cell-box"><div class="stat-cell-lbl">School XP</div><div class="stat-cell-val" id="d-school-xp" style="color:var(--cat-school)">0</div></div>
           <div class="stat-cell-box"><div class="stat-cell-lbl">Level</div><div class="stat-cell-val" id="d-rank-abbr">—</div></div>
         </div>
@@ -897,40 +860,14 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
         <button class="btn btn-primary" onclick="nav('brief')">Back to Home</button>
       </div>
 
-    </div>
-  </div>
-
       <!-- PARENT DASHBOARD -->
-      <div class="screen" id="s-parent" style="overflow:visible;">
-        <div id="parent-locked" style="text-align:center;padding:60px 20px;">
-          <div style="font-size:52px;margin-bottom:18px;">🔒</div>
-          <div style="font-size:22px;font-weight:800;color:var(--txt);letter-spacing:-.4px;margin-bottom:8px;">Parent Dashboard</div>
-          <div style="font-size:14px;color:var(--txt2);margin-bottom:32px;">Enter your PIN to manage schedule, tasks, and rewards.</div>
-          <button class="btn btn-primary" style="max-width:240px;margin:0 auto;" onclick="requirePin('parentunlock')">Enter PIN</button>
-        </div>
-        <div id="parent-unlocked" style="display:none;padding-bottom:24px;">
+      <div class="screen" id="s-parent">
           <div class="parent-tabs">
-            <button class="ptab active" id="ptab-schedule" onclick="ptab('schedule')">Schedule</button>
-            <button class="ptab" id="ptab-tasks" onclick="ptab('tasks')">Tasks</button>
-            <button class="ptab" id="ptab-school" onclick="ptab('school')">School</button>
+            <button class="ptab active" id="ptab-school" onclick="ptab('school')">School</button>
             <button class="ptab" id="ptab-rewards" onclick="ptab('rewards')">Rewards</button>
             <button class="ptab" id="ptab-settings" onclick="ptab('settings')">Settings</button>
           </div>
-          <div class="ptab-content active" id="pc-schedule">
-            <div class="parent-toolbar">
-              <span class="parent-hint">Tap a block to edit.</span>
-              <button class="btn-add" onclick="addBlock()">+ Add Block</button>
-            </div>
-            <div id="block-editor-list"></div>
-          </div>
-          <div class="ptab-content" id="pc-tasks">
-            <div class="parent-toolbar">
-              <span class="parent-hint">Tasks without times show in the Tasks tab.</span>
-              <button class="btn-add" onclick="addTask()">+ Add Task</button>
-            </div>
-            <div id="task-editor-list"></div>
-          </div>
-          <div class="ptab-content" id="pc-school">
+          <div class="ptab-content active" id="pc-school">
             <div class="parent-toolbar">
               <span class="parent-hint">Set school days and subjects.</span>
               <button class="btn-add" onclick="addSubject()">+ Add Subject</button>
@@ -982,13 +919,14 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
 
 
   <div class="navbar">
     <button class="nb active" id="nb-brief"      onclick="nav('brief')">      <span class="nb-icon">🏠</span>Home</button>
-    <button class="nb"        id="nb-mission"    onclick="nav('mission')">    <span class="nb-icon">🗓</span>Schedule</button>
     <button class="nb"        id="nb-school"     onclick="nav('school')">     <span class="nb-icon">📚</span>School</button>
-    <button class="nb"        id="nb-activities" onclick="nav('activities')"> <span class="nb-icon">✅</span>Tasks</button>
     <button class="nb"        id="nb-rewards"    onclick="nav('rewards')">    <span class="nb-icon">⭐</span>Rewards</button>
     <button class="nb"        id="nb-debrief"    onclick="nav('debrief')">    <span class="nb-icon">📊</span>Report</button>
   </div>
@@ -1181,9 +1119,8 @@ function navParent(){
   if(!parentUnlocked){
     requirePin('parentunlock');
   } else {
-    // Already unlocked — toggle: if parent screen active, go home; else show parent
-    var parentScreen=el('s-parent');
-    if(parentScreen&&parentScreen.classList&&parentScreen.classList.contains('active')){
+    var ps=el('s-parent');
+    if(ps&&ps.classList&&ps.classList.contains('active')){
       nav('brief');
     } else {
       showParentScreen();
@@ -1205,23 +1142,22 @@ function showParentScreen(){
 function nav(screen){
   if(screen==='parent'&&!parentUnlocked){
     // Show locked state, then require PIN
-    const screens=['brief','mission','school','activities','rewards','debrief','parent'];
+    const screens=['brief','school','rewards','debrief','parent'];
     screens.forEach(s=>{const sc=el('s-'+s);if(sc)sc.classList.remove('active');const nb=el('nb-'+s);if(nb){nb.classList.remove('active');nb.classList.remove('school-active');}});
     el('s-parent').classList.add('active');
     el('nb-parent').classList.add('active');
-    el('parent-locked').style.display='block';
-    el('parent-unlocked').style.display='none';
+    // show PIN instead
     el('app-title').textContent='Parent';
     return;
   }
-  const screens=['brief','mission','school','activities','rewards','debrief','parent'];
+  const screens=['brief','school','rewards','debrief','parent'];
   screens.forEach(s=>{const sc=el('s-'+s);if(sc)sc.classList.remove('active');const nb=el('nb-'+s);if(nb){nb.classList.remove('active');nb.classList.remove('school-active');}});
   const sc=el('s-'+screen);if(sc)sc.classList.add('active');
   const nb=el('nb-'+screen);
   if(nb){if(screen==='school')nb.classList.add('school-active');else nb.classList.add('active');}
-  const titles={brief:'stackd',mission:'Schedule',school:'School',activities:'Tasks',rewards:'Rewards',debrief:'Daily Report',parent:'Parent'};
+  const titles={brief:'stackd · school',school:'School',rewards:'Rewards',debrief:'Daily Report',parent:'Parent'};
   el('app-title').textContent=titles[screen]||'stackd';
-  const renders={brief:renderBrief,mission:renderMission,school:renderSchool,activities:renderActivities,rewards:renderRewards,debrief:renderDebrief,parent:renderParent};
+  const renders={brief:renderBrief,school:renderSchool,rewards:renderRewards,debrief:renderDebrief,parent:renderParent};
   if(renders[screen])renders[screen]();
 }
 
@@ -1239,41 +1175,27 @@ function renderBrief(){
   const h=new Date().getHours();
   el('b-tod-label').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
   const{rank,total,next,pct}=getRankData();
-  const kidName=DB.config.kidName||'Champion';
   el('b-rank-display').textContent=rank.name+' · '+total.toLocaleString()+' XP';
   el('b-rank-abbr').textContent=rank.abbr;
   el('b-rank-name').textContent=rank.name;
   el('b-rank-fill').style.width=pct+'%';
   el('b-lxp').textContent=total.toLocaleString();
   el('b-nxp').textContent=next?next.min.toLocaleString():'MAX';
-  const cur=getCurrentBlock();const nxt=getNextBlock();
-  const totalMins=new Date().getHours()*60+new Date().getMinutes();
-  if(cur){
-    const remMins=cur.endMins-totalMins;
-    const p=Math.min(100,Math.round(((totalMins-cur.startMins)/(cur.endMins-cur.startMins))*100));
-    el('b-block-name').textContent=cur.block.block;
-    el('b-timer').textContent=fmtMins(remMins);
-    el('b-prog').style.width=p+'%';
-    el('b-next').innerHTML=nxt?'Up next: <span>'+nxt.block+'</span>':'<span>Last block today 👏</span>';
-  }else{
-    el('b-block-name').textContent=nxt?nxt.block:'All done today!';
-    el('b-timer').textContent='--:--';
-    el('b-prog').style.width='0%';
-    el('b-next').innerHTML=nxt?'Starts at: <span>'+nxt.start+'</span>':'<span>Great work today! 🎉</span>';
-  }
-  const up=el('b-upcoming');up.innerHTML='';
-  const timedBlocks=DB.schedule.filter(b=>isActiveDay(b.days)&&b.start&&b.start!=='none');
-  timedBlocks.forEach(b=>{
-    const sm=toMins(b.start);const em=b.end?toMins(b.end):sm+90;
-    const isCur=cur&&cur.block===b;const isDone=em!==null&&totalMins>=em&&!isCur;
-    const div=document.createElement('div');div.className='up-item'+(isCur?' now':'');
-    if(isDone)div.style.opacity='.3';
-    const timeStr=b.end?b.start+'–'+b.end:b.start;
-    const color=CAT_COLOR[b.category]||CAT_COLOR.chore;
-    div.innerHTML='<div class="up-dot" style="background:'+color+'"></div><span class="up-lbl">'+b.block+'</span><span class="up-time">'+timeStr+'</span>'+(isCur?'<span class="now-tag">Now</span>':'');
-    up.appendChild(div);
-  });
-  if(!timedBlocks.length)up.innerHTML='<div class="loading-msg">No schedule - set one up in Parent tab.</div>';
+  // School session summary
+  const lessons=getTodaySubjects();
+  const done=lessons.filter((_,i)=>DB.isSubjectDone(i)).length;
+  const left=lessons.length-done;
+  const totalXP=lessons.reduce((s,l)=>s+l.xp,0);
+  const earnedXP=DB.getSchoolXPToday();
+  const pctDone=lessons.length>0?Math.round((done/lessons.length)*100):0;
+  el('b-block-name').textContent=lessons.length===0?'No school today':done===lessons.length&&lessons.length>0?'Session complete! 🎉':'Session in progress';
+  el('b-timer').textContent=done+'/'+lessons.length;
+  el('b-prog').style.width=pctDone+'%';
+  el('b-next').innerHTML='XP available: <span>'+totalXP+'</span>';
+  el('b-temp').textContent=earnedXP;
+  el('b-fl').textContent=done;
+  el('b-wnd').textContent=left;
+  el('b-hum').textContent=lessons.length;
 }
 
 function getCurrentBlock(){
@@ -1580,15 +1502,12 @@ function unlockReward(id,cost,name){
 // -- REPORT --
 function renderDebrief(){
   const choreXP=DB.getChoreXP();const schoolXP=DB.getSchoolXPToday();
-  let totalItems=0,doneItems=0;
-  DB.schedule.filter(b=>isActiveDay(b.days)).forEach(b=>{
-    totalItems++;if(DB.isBlockDone(b.id))doneItems++;
-    (b.items||[]).forEach(it=>{totalItems++;if(DB.isSubitemDone(it.id))doneItems++;});
-  });
-  DB.tasks.filter(t=>isActiveDay(t.days)).forEach(t=>{totalItems++;if(DB.isTaskDone(t.id))doneItems++;});
+  const lessons=getTodaySubjects();
+  const doneItems=lessons.filter((_,i)=>DB.isSubjectDone(i)).length;
+  const totalItems=lessons.length;
   const pct=totalItems>0?Math.round((doneItems/totalItems)*100):0;
   const streak=DB.getStreak();const{rank,total,next,pct:rpct}=getRankData();
-  el('d-chore-xp').textContent=choreXP;
+  el('d-chore-xp').textContent=DB.getSchoolXPToday();
   el('d-school-xp').textContent=schoolXP;
   el('d-rank-abbr').textContent=rank.abbr;
   el('d-rank-abbr2').textContent=rank.abbr;
@@ -1617,15 +1536,13 @@ function renderDebrief(){
 // ================================================
 function renderParent(){
   if(!parentUnlocked){
-    el('parent-locked').style.display='block';
-    el('parent-unlocked').style.display='none';
+    // show PIN instead
     return;
   }
-  el('parent-locked').style.display='none';
-  el('parent-unlocked').style.display='block';
+  // parent content is always in DOM
   // Populate settings
   el('set-kidname').value=DB.config.kidName||'';
-  ptab('schedule');
+  ptab('school');
 }
 
 function ptab(name){
@@ -1893,7 +1810,7 @@ function checkPin(){
     if(action==='startschool')startSchool();
     else if(action==='skipschool')skipSchool();
     else if(action==='resetschool')resetSchool();
-    else if(action==='resetactivities')resetActivities();
+    
     else if(action==='parentunlock'){parentUnlocked=true;showParentScreen();}
   }else{
     el('pin-err').textContent='Wrong PIN - try again.';
@@ -1973,13 +1890,13 @@ function launchApp(){
   el('splash').classList.add('sp-out');
   el('app').classList.add('ready');
   applyTheme(getTheme());
-  setClock();renderBrief();renderActivities();loadWeather();
+  setClock();renderBrief();
   setInterval(setClock,1000);setInterval(updateUptime,1000);
   setInterval(()=>{
     if(el('s-brief').classList.contains('active'))renderBrief();
     if(el('s-mission').classList.contains('active'))renderMission();
   },30000);
-  setTimeout(()=>el('splash').style.display='none',600);
+  setTimeout(()=>{el('splash').style.display='none';el('splash').style.pointerEvents='none';},400);
 }
 
 async function boot(){
