@@ -2101,21 +2101,23 @@ function playWarnChime(){
         o.stop(ctx.currentTime+p[1]+2);
       });
     } else if(style==='bowl'){
-      // Singing bowl — single low resonant tone that fades slowly
-      var o=ctx.createOscillator(),g=ctx.createGain();
-      var o2=ctx.createOscillator(),g2=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o2.connect(g2);g2.connect(ctx.destination);
-      o.type='sine';o.frequency.value=220;
-      o2.type='sine';o2.frequency.value=221; // slight detune for beating effect
-      g.gain.setValueAtTime(0,ctx.currentTime);
-      g.gain.linearRampToValueAtTime(0.1,ctx.currentTime+0.1);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3.5);
-      g2.gain.setValueAtTime(0,ctx.currentTime);
-      g2.gain.linearRampToValueAtTime(0.07,ctx.currentTime+0.1);
-      g2.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3.5);
-      o.start(ctx.currentTime);o.stop(ctx.currentTime+4);
-      o2.start(ctx.currentTime);o2.stop(ctx.currentTime+4);
+      [[220,0.12],[440,0.06],[660,0.03]].forEach(function(pair){
+        var o=ctx.createOscillator(),g=ctx.createGain();
+        o.connect(g);g.connect(ctx.destination);
+        o.type='sine';o.frequency.value=pair[0];
+        g.gain.setValueAtTime(0.001,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(pair[1],ctx.currentTime+0.08);
+        g.gain.setValueAtTime(pair[1],ctx.currentTime+0.15);
+        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+4.0);
+        o.start(ctx.currentTime);o.stop(ctx.currentTime+4.2);
+      });
+      var ob=ctx.createOscillator(),gb=ctx.createGain();
+      ob.connect(gb);gb.connect(ctx.destination);
+      ob.type='sine';ob.frequency.value=222;
+      gb.gain.setValueAtTime(0.001,ctx.currentTime);
+      gb.gain.linearRampToValueAtTime(0.04,ctx.currentTime+0.1);
+      gb.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3.5);
+      ob.start(ctx.currentTime);ob.stop(ctx.currentTime+4.0);
     } else if(style==='marimba'){
       // Light marimba — two cheerful notes
       [[880,0],[1047,0.25],[1319,0.5],[1047,0.75]].forEach(function(p){
@@ -2156,7 +2158,12 @@ function applyTimerWarning(secsRemaining, totalSecs, timerEl, fillEl, cardEl){
 
   if(secsRemaining <= 0){
     // TIME'S UP
-    if(timerEl&&timerEl.style) timerEl.style.color='var(--red)';
+    if(timerEl&&timerEl.style){
+      timerEl.style.color='#fff';
+      timerEl.style.background='var(--red)';
+      timerEl.style.borderRadius='10px';
+      timerEl.style.padding='4px 16px';
+    }
     if(fillEl&&fillEl.style) fillEl.style.background='var(--red)';
     if(cardEl&&cardEl.classList){
       cardEl.classList.remove('timer-pulse-warn');
@@ -2170,19 +2177,16 @@ function applyTimerWarning(secsRemaining, totalSecs, timerEl, fillEl, cardEl){
     // Progress 0 (just entered warning) to 1 (at 0)
     var progress = 1 - (secsRemaining/warnSecs);
 
-    // Color shift: interpolate accent→yellow→red
+    // Color shift: pill background, white text
     if(visual==='color'||visual==='both'){
-      var timerColor, fillColor;
-      if(progress < 0.5){
-        // purple → yellow
-        timerColor = 'var(--xp)';
-        fillColor = 'var(--xp)';
-      } else {
-        // yellow → red
-        timerColor = 'var(--red)';
-        fillColor = 'var(--red)';
+      var bgColor=progress<0.5?'var(--xp)':'var(--red)';
+      if(timerEl&&timerEl.style){
+        timerEl.style.color='#fff';
+        timerEl.style.background=bgColor;
+        timerEl.style.borderRadius='10px';
+        timerEl.style.padding='4px 16px';
+        timerEl.style.transition='background 1.5s ease';
       }
-      if(timerEl&&timerEl.style) timerEl.style.color=timerColor;
       if(fillEl&&fillEl.style) fillEl.style.background=fillColor;
     }
 
