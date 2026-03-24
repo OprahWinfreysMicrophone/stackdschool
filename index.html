@@ -758,7 +758,7 @@ body{font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none;-we
           <div class="si-icon">📚</div>
           <div class="si-title">Ready to learn?</div>
           <div class="si-sub" id="sh-lesson-count"></div>
-          <button class="btn btn-school" style="max-width:260px;margin:0 auto;" onclick="requirePin('startschool')">Start Session</button>
+          <button class="btn btn-school" style="max-width:260px;margin:0 auto;" onclick="startSchool()">Start Session</button>
         </div>
 
         <div id="school-active" style="display:none;">
@@ -1116,16 +1116,8 @@ function uid(){return Math.random().toString(36).slice(2,8);}
 // -- NAV --
 let parentUnlocked = false;
 function navParent(){
-  if(!parentUnlocked){
-    requirePin('parentunlock');
-  } else {
-    var ps=el('s-parent');
-    if(ps&&ps.classList&&ps.classList.contains('active')){
-      nav('brief');
-    } else {
-      showParentScreen();
-    }
-  }
+  // Always require PIN — no persistent unlock
+  requirePin('parentunlock');
 }
 
 function showParentScreen(){
@@ -1807,8 +1799,7 @@ function checkPin(){
   if(pinBuffer===correct){
     el('pin-overlay').classList.remove('show');
     const action=pinCallback;pinBuffer='';pinCallback=null;
-    if(action==='startschool')startSchool();
-    else if(action==='skipschool')skipSchool();
+    if(action==='skipschool')skipSchool();
     else if(action==='resetschool')resetSchool();
     
     else if(action==='parentunlock'){parentUnlocked=true;showParentScreen();}
